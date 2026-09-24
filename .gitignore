@@ -1,0 +1,39 @@
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Bytecode / cache de Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Base de datos local (contiene datos reales, no se sube)
+*.db
+*.sqlite
+*.sqlite3
+
+# Variables de entorno / credenciales
+.env
+.env.local
+
+# PyInstaller
+build/
+dist/
+*.spec.bak
+
+# Logs
+logs/
+*.log
+
+# Tickets y reportes PDF generados en uso
+tickets/
+reportes/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
