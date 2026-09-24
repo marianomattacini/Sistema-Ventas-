@@ -1,13 +1,26 @@
+"""
+insertar_clientes_bancarios.py
+
+Script de siembra (seed) para PostgreSQL: carga 10 cuentas bancarias y
+tarjetas de crédito de PRUEBA, usadas solo para desarrollo y demos locales
+del sistema.
+
+⚠️ TODOS los datos de abajo (DNI, usuarios, contraseñas, números de tarjeta,
+   CVV, CBU, alias) son INVENTADOS. Tienen el formato típico de estos campos
+   para que el sistema los pueda validar y mostrar en pantalla, pero no
+   corresponden a ninguna persona, cuenta ni tarjeta real.
+"""
 import psycopg2
 from database.config import get_postgres_connection
 from datetime import datetime
 
 def insertar_cuentas():
-    """Inserta 10 cuentas bancarias y tarjetas de crédito de prueba."""
+    """Inserta 10 cuentas bancarias y tarjetas de crédito de PRUEBA (datos ficticios)."""
     
     clientes = [
         # (dni, usuario, contrasena, tipo_cuenta, saldo, numero_debito, pin_debito, alias, cbu,
         #  numero_tarjeta_credito, cvv, vencimiento_credito, limite_un_pago, limite_cuotas, banco, promocion)
+        # --- Todos los valores de esta lista son ficticios, ver aclaracion arriba ---
         ("20123456789", "cliente_galicia", "pass123", "Caja de Ahorro", 150000.00, "4000111122223333", "1234", "mariano.galicia", "0000111122223333444455",
          "4509111122223333", "123", "2026-12-01", 1000000.00, 800000.00, "Galicia", "3 cuotas sin interés"),
         ("20234567890", "cliente_nacion", "pass123", "Cuenta Corriente", 50000.00, "4000999988887777", "4321", "compras.nacion", "0000999988887777666655",
