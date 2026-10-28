@@ -93,7 +93,7 @@ class Sidebar(ctk.CTkFrame):
         self.lbl_usuario.pack(fill="x", padx=Spacing.SM, pady=(0, Spacing.SM))
 
         btn_salir = ctk.CTkButton(
-            pie, text="🚪 Cerrar Sesión", font=Font.BODY_BOLD, height=38,
+            pie, text="🚪 Cerrar Sesión", font=Font.BODY_BOLD, height=40,
             corner_radius=Radius.MD, fg_color=Color.DANGER,
             hover_color=Color.DANGER_HOVER, command=self._cerrar_sesion,
         border_width=1, border_color="#B8C1CE", text_color="#FFFFFF")

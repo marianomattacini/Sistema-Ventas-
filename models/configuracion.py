@@ -11,7 +11,7 @@ class Configuracion:
         filas = bd.consultar("SELECT valor FROM configuracion WHERE clave = ?", (clave,))
         return filas[0][0] if filas else None
 
-    @staticmethod
+    @staticmethod 
     def guardar(clave, valor):
         """Guarda o actualiza una configuración."""
         bd = get_base_datos()

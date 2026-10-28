@@ -85,8 +85,8 @@ class FramePOS(BaseFrame):
         ).pack(pady=(20, 10))
         
         self.entry_codigo = ctk.CTkEntry(panel, placeholder_text="Código de Barras...",
-                                        height=50, font=("Roboto", 18),
-                                        fg_color="#D6DBE3", text_color="#1A2233")
+                                        height=38, font=("Roboto", 18),
+                                        fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         self.entry_codigo.pack(fill="x", padx=20, pady=10)
         self.entry_codigo.bind("<Return>", lambda e: self._procesar_escaneo())
         
@@ -102,8 +102,8 @@ class FramePOS(BaseFrame):
         ).pack(pady=(0, 10))
         
         self.entry_dni = ctk.CTkEntry(panel, placeholder_text="DNI Cliente",
-                                     height=40, font=("Roboto", 14),
-                                     fg_color="#D6DBE3", text_color="#1A2233")
+                                     height=38, font=("Roboto", 14),
+                                     fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         self.entry_dni.pack(fill="x", padx=20, pady=10)
         self.entry_dni.bind("<Return>", lambda e: self._buscar_cliente())
         
@@ -145,27 +145,27 @@ class FramePOS(BaseFrame):
                     font=("Roboto", 16, "bold"), text_color="#1D4ED8"
         ).pack(pady=(20, 10))
         
-        btn_efectivo = ctk.CTkButton(panel, text="💵 Efectivo", height=50,
+        btn_efectivo = ctk.CTkButton(panel, text="💵 Efectivo", height=40,
                                     fg_color="#D6DBE3", hover_color="#64748B",
                                     corner_radius=10, command=lambda: self._procesar_pago("Efectivo"), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
         btn_efectivo.pack(fill="x", padx=20, pady=5)
         
-        btn_debito = ctk.CTkButton(panel, text="💳 Tarj. Débito (Red)", height=50,
+        btn_debito = ctk.CTkButton(panel, text="💳 Tarj. Débito (Red)", height=40,
                                   fg_color="#D6DBE3", hover_color="#64748B",
                                   corner_radius=10, command=lambda: self._procesar_pago("Débito"), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
         btn_debito.pack(fill="x", padx=20, pady=5)
         
-        btn_credito = ctk.CTkButton(panel, text="💳 Tarj. Crédito (Cuotas)", height=50,
+        btn_credito = ctk.CTkButton(panel, text="💳 Tarj. Crédito (Cuotas)", height=40,
                                    fg_color="#D6DBE3", hover_color="#64748B",
                                    corner_radius=10, command=lambda: self._procesar_pago("Crédito"), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
         btn_credito.pack(fill="x", padx=20, pady=5)
         
-        btn_transferencia = ctk.CTkButton(panel, text="💸 Transferencia", height=50,
+        btn_transferencia = ctk.CTkButton(panel, text="💸 Transferencia", height=40,
                                          fg_color="#D6DBE3", hover_color="#64748B",
                                          corner_radius=10, command=lambda: self._procesar_pago("Transferencia"), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
         btn_transferencia.pack(fill="x", padx=20, pady=5)
         
-        btn_qr = ctk.CTkButton(panel, text="📱 QR / Billetera Virtual", height=50,
+        btn_qr = ctk.CTkButton(panel, text="📱 QR / Billetera Virtual", height=40,
                               fg_color="#D6DBE3", hover_color="#64748B",
                               corner_radius=10, command=lambda: self._procesar_pago("QR"), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
         btn_qr.pack(fill="x", padx=20, pady=5)
@@ -182,7 +182,7 @@ class FramePOS(BaseFrame):
         self.btn_pausar.pack(fill="x", padx=20, pady=5)
         
         btn_descanso = ctk.CTkButton(panel, text="☕ Descanso", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=self._descanso, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_descanso.pack(fill="x", padx=20, pady=5)
         
@@ -199,13 +199,13 @@ class FramePOS(BaseFrame):
                                        corner_radius=10, command=self._cerrar_caja, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cerrar_caja.pack(fill="x", padx=20, pady=5)
         
-        btn_anular = ctk.CTkButton(panel, text="🗑️ ANULAR PEDIDO", height=50,
+        btn_anular = ctk.CTkButton(panel, text="🗑️ ANULAR PEDIDO", height=40,
                                   font=("Roboto", 14, "bold"),
                                   fg_color="#DC2626", hover_color="#B91C1C",
                                   corner_radius=10, command=self._anular_pedido, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_anular.pack(fill="x", padx=20, pady=(20, 10))
         
-        btn_retomar = ctk.CTkButton(panel, text="🔄 Retomar Ticket (Manual)", height=35,
+        btn_retomar = ctk.CTkButton(panel, text="🔄 Retomar Ticket (Manual)", height=40,
                                    fg_color="#7C3AED", hover_color="#6D28D9",
                                    corner_radius=10, command=self._retomar_ticket_manual, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_retomar.pack(fill="x", padx=20, pady=5)
@@ -426,11 +426,11 @@ class FramePOS(BaseFrame):
 
         frame_btns = ctk.CTkFrame(frame, fg_color="transparent")
         frame_btns.pack(fill="x")
-        ctk.CTkButton(frame_btns, text="Confirmar", height=35, fg_color="#15803D",
+        ctk.CTkButton(frame_btns, text="Confirmar", height=40, fg_color="#15803D",
                     hover_color="#166534", corner_radius=10,
                     command=confirmar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF").pack(side="left", fill="x", expand=True, padx=(0, 5))
-        ctk.CTkButton(frame_btns, text="Cancelar", height=35, fg_color="#64748B",
-                    hover_color="#D6DBE3", corner_radius=10,
+        ctk.CTkButton(frame_btns, text="Cancelar", height=40, fg_color="#64748B",
+                    hover_color="#475569", corner_radius=10,
                     command=cancelar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF").pack(side="left", fill="x", expand=True, padx=(5, 0))
 
         self.wait_window(dialog)
@@ -888,8 +888,8 @@ class FramePOS(BaseFrame):
                     font=("Roboto", 18), text_color="#6B7280"
         ).pack(pady=20)
         
-        entry_pin = ctk.CTkEntry(self.frame_descanso, show="*", width=200, height=50, 
-                                 font=("Roboto", 24), justify="center")
+        entry_pin = ctk.CTkEntry(self.frame_descanso, show="*", width=200, height=38, 
+                                 font=("Roboto", 24), justify="center", border_color="#D6DBE3")
         entry_pin.pack()
         entry_pin.focus()
         
@@ -933,20 +933,20 @@ class FramePOS(BaseFrame):
         ctk.CTkLabel(frame, text="Fondo Inicial:", font=("Roboto", 14, "bold")
         ).pack(anchor="w", padx=40, pady=(10, 5))
         
-        self.entry_fondo = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16),
-                                      fg_color="#D6DBE3", text_color="#1A2233")
+        self.entry_fondo = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16), height=38,
+                                      fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         self.entry_fondo.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_fondo.bind("<Return>", lambda e: self._ejecutar_apertura())
         self.entry_fondo.focus_set()
         
-        btn_abrir = ctk.CTkButton(frame, text="ABRIR TURNO", height=50,
+        btn_abrir = ctk.CTkButton(frame, text="ABRIR TURNO", height=40,
                                  font=("Roboto", 16, "bold"), fg_color="#15803D",
                                  hover_color="#166534", corner_radius=10,
                                  command=self._ejecutar_apertura, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_abrir.pack(fill="x", padx=40, pady=10)
         
         btn_cancelar = ctk.CTkButton(frame, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=self.controller.cerrar_sesion, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(fill="x", padx=40, pady=5)
     
@@ -1009,16 +1009,16 @@ class FramePOS(BaseFrame):
         ctk.CTkLabel(frame, text="Monto a retirar:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
         
-        entry_monto = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16),
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+        entry_monto = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16), height=38,
+                                  fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         entry_monto.pack(fill="x", pady=(0, 10))
         entry_monto.focus_set()
         
         ctk.CTkLabel(frame, text="Motivo:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
         
-        entry_motivo = ctk.CTkEntry(frame, placeholder_text="Ej. Pago a proveedor, cambio...", font=("Roboto", 13),
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+        entry_motivo = ctk.CTkEntry(frame, placeholder_text="Ej. Pago a proveedor, cambio...", font=("Roboto", 13), height=38,
+                                  fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         entry_motivo.pack(fill="x", pady=(0, 10))
         
         frame_botones = ctk.CTkFrame(frame, fg_color="transparent")
@@ -1072,7 +1072,7 @@ class FramePOS(BaseFrame):
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
         
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
 

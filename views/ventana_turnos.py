@@ -52,8 +52,8 @@ class FrameTurnos(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
+        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=40,
+                                  fg_color="#64748B", hover_color="#475569",
                                   corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_volver.pack(side="right", padx=10)
         
@@ -82,7 +82,7 @@ class FrameTurnos(BaseFrame):
         self.combo_operador.set("Todos")
         
         # Botón refrescar
-        btn_refrescar = ctk.CTkButton(panel_filtros, text="🔄 Refrescar", height=35,
+        btn_refrescar = ctk.CTkButton(panel_filtros, text="🔄 Refrescar", height=40,
                                      fg_color="#2563EB", hover_color="#2563EB",
                                      corner_radius=10, command=self._cargar_turnos, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_refrescar.pack(side="right", padx=10, pady=10)
@@ -104,23 +104,23 @@ class FrameTurnos(BaseFrame):
         btn_sangria = ctk.CTkButton(panel_acciones, text="💰 Registrar Sangría", height=40,
                                    fg_color="#C2410C", hover_color="#9A3412",
                                    corner_radius=10, command=self._registrar_sangria, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_sangria.pack(side="left", padx=10)
+        btn_sangria.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_cerrar = ctk.CTkButton(panel_acciones, text="🔒 Cerrar Turno Seleccionado", height=40,
                                   fg_color="#2563EB", hover_color="#1D4ED8",
                                   corner_radius=10, command=self._cerrar_turno, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_cerrar.pack(side="left", padx=10)
+        btn_cerrar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_forzar = ctk.CTkButton(panel_acciones, text="⚠️ Forzar Cierre", height=40,
                                   fg_color="#DC2626", hover_color="#B91C1C",
                                   corner_radius=10, command=self._forzar_cierre, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_forzar.pack(side="left", padx=10)
+        btn_forzar.pack(side="left", padx=10, fill="x", expand=True)
         
         # NUEVO BOTÓN: Generar Reporte
         btn_reporte = ctk.CTkButton(panel_acciones, text="📄 Generar Reporte", height=40,
                                    fg_color="#7C3AED", hover_color="#6D28D9",
                                    corner_radius=10, command=self._generar_reporte, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_reporte.pack(side="left", padx=10)
+        btn_reporte.pack(side="left", padx=10, fill="x", expand=True)
         
         ctk.CTkLabel(panel_acciones, text="Seleccione un turno para cerrar o forzar cierre", 
                     font=("Roboto", 12), text_color="#8B93A3"
@@ -417,16 +417,16 @@ class FrameTurnos(BaseFrame):
         ctk.CTkLabel(frame, text="Monto a retirar:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
         
-        entry_monto = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16),
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+        entry_monto = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16), height=38,
+                                  fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         entry_monto.pack(fill="x", pady=(0, 10))
         entry_monto.focus_set()
         
         ctk.CTkLabel(frame, text="Motivo:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
         
-        entry_motivo = ctk.CTkEntry(frame, placeholder_text="Ej. Pago a proveedor, cambio...", font=("Roboto", 13),
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+        entry_motivo = ctk.CTkEntry(frame, placeholder_text="Ej. Pago a proveedor, cambio...", font=("Roboto", 13), height=38,
+                                  fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
         entry_motivo.pack(fill="x", pady=(0, 10))
         
         # Botones
@@ -491,7 +491,7 @@ class FrameTurnos(BaseFrame):
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
         
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     

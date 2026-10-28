@@ -49,8 +49,8 @@ class FrameUsuarios(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
+        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=40,
+                                  fg_color="#64748B", hover_color="#475569",
                                   corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_volver.pack(side="right", padx=10)
         
@@ -62,17 +62,17 @@ class FrameUsuarios(BaseFrame):
         ).pack(side="left", padx=10, pady=10)
         
         self.entry_buscar = ctk.CTkEntry(panel_busqueda, placeholder_text="Nombre de usuario...",
-                                        width=250, height=35, font=("Roboto", 13))
+                                        width=250, height=38, font=("Roboto", 13), border_color="#D6DBE3")
         self.entry_buscar.pack(side="left", padx=10, pady=10)
         self.entry_buscar.bind("<Return>", lambda e: self._cargar_usuarios())
         
-        btn_buscar = ctk.CTkButton(panel_busqueda, text="Buscar", height=35,
+        btn_buscar = ctk.CTkButton(panel_busqueda, text="Buscar", height=40,
                                   fg_color="#2563EB", hover_color="#2563EB",
                                   corner_radius=10, command=self._cargar_usuarios, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_buscar.pack(side="left", padx=5, pady=10)
         
-        btn_limpiar = ctk.CTkButton(panel_busqueda, text="Limpiar", height=35,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
+        btn_limpiar = ctk.CTkButton(panel_busqueda, text="Limpiar", height=40,
+                                   fg_color="#64748B", hover_color="#475569",
                                    corner_radius=10, command=self._limpiar_filtros, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_limpiar.pack(side="left", padx=5, pady=10)
         
@@ -93,22 +93,22 @@ class FrameUsuarios(BaseFrame):
         btn_agregar = ctk.CTkButton(panel_botones, text="➕ Agregar Usuario", height=40,
                                    fg_color="#15803D", hover_color="#166534",
                                    corner_radius=10, command=self._abrir_formulario_alta, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_agregar.pack(side="left", padx=10)
+        btn_agregar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_editar = ctk.CTkButton(panel_botones, text="✏️ Editar", height=40,
                                   fg_color="#2563EB", hover_color="#1D4ED8",
                                   corner_radius=10, command=self._abrir_formulario_edicion, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_editar.pack(side="left", padx=10)
+        btn_editar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_reset_pin = ctk.CTkButton(panel_botones, text="🔑 Resetear PIN", height=40,
                                      fg_color="#C2410C", hover_color="#9A3412",
                                      corner_radius=10, command=self._resetear_pin, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_reset_pin.pack(side="left", padx=10)
+        btn_reset_pin.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_estado = ctk.CTkButton(panel_botones, text="🔄 Cambiar Estado", height=40,
                                   fg_color="#7C3AED", hover_color="#6D28D9",
                                   corner_radius=10, command=self._cambiar_estado, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_estado.pack(side="left", padx=10)
+        btn_estado.pack(side="left", padx=10, fill="x", expand=True)
         
         ctk.CTkLabel(panel_botones, text="Seleccione un usuario para editar", 
                     font=("Roboto", 12), text_color="#8B93A3"
@@ -220,8 +220,8 @@ class FrameUsuarios(BaseFrame):
                 else:
                     entrada.set("Cajero")
             else:
-                entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=35,
-                                      fg_color="#D6DBE3", text_color="#1A2233")
+                entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=38,
+                                      fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
                 if clave in ["pin", "pin_confirm"]:
                     entrada.configure(show="*")
                 entrada.pack(fill="x", padx=0, pady=(0, 5))
@@ -322,7 +322,7 @@ class FrameUsuarios(BaseFrame):
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
         
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     
@@ -427,6 +427,6 @@ class FrameUsuarios(BaseFrame):
         btn_guardar.pack(fill="x", pady=(10, 5))
         
         btn_cancelar = ctk.CTkButton(frame, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(fill="x", pady=5)

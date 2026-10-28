@@ -49,7 +49,7 @@ class MenuPrincipal(ctk.CTkFrame):
 
         # Función para crear botones
         def crear_boton(fila, columna, texto, comando, color="#2563EB"):
-            btn = ctk.CTkButton(frame_botones, text=texto, height=60,
+            btn = ctk.CTkButton(frame_botones, text=texto, height=40,
                               font=("Roboto", 16, "bold"), fg_color=color,
                               hover_color="#2563EB" if color == "#2563EB" else color,
                               corner_radius=12, command=comando, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")

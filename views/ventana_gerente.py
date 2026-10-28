@@ -47,8 +47,8 @@ class FrameGerente(BaseFrame):
                     font=("Roboto", 14), text_color="#6B7280"
         ).pack(side="right", padx=10)
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
+        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=40,
+                                  fg_color="#64748B", hover_color="#475569",
                                   corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_volver.pack(side="right", padx=10)
         
@@ -238,7 +238,7 @@ class FrameGerente(BaseFrame):
         self.combo_estadistica.pack(side="left", padx=10, pady=10)
         self.combo_estadistica.set("Todos")
         
-        btn_exportar = ctk.CTkButton(frame_filtros, text="📤 Exportar a PDF", height=35,
+        btn_exportar = ctk.CTkButton(frame_filtros, text="📤 Exportar a PDF", height=40,
                                    fg_color="#7C3AED", hover_color="#6D28D9",
                                    corner_radius=10, command=self._exportar_estadisticas_pdf, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_exportar.pack(side="right", padx=10, pady=10)
@@ -257,7 +257,7 @@ class FrameGerente(BaseFrame):
         ctk.CTkLabel(header_pred, text="🔮 Predicción de Ventas — Próximo Trimestre",
                     font=("Roboto", 16, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
-        ctk.CTkButton(header_pred, text="Generar Predicción", height=32, width=160,
+        ctk.CTkButton(header_pred, text="Generar Predicción", height=40, width=160,
                      font=("Roboto", 12, "bold"), fg_color="#2563EB", hover_color="#2563EB",
                      corner_radius=10, command=self._generar_prediccion_ventas
         , border_width=1, border_color="#CBD2DC", text_color="#FFFFFF").pack(side="right")
@@ -508,7 +508,7 @@ class FrameGerente(BaseFrame):
         btn_nuevo.pack(side="left", padx=5)
         
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
+                                     fg_color="#64748B", hover_color="#475569",
                                      corner_radius=10, command=self._cargar_empleados, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
         
@@ -560,7 +560,7 @@ class FrameGerente(BaseFrame):
                                  corner_radius=10, command=self._abrir_presupuesto, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_nuevo.pack(side="left", padx=5)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
+                                     fg_color="#64748B", hover_color="#475569",
                                      corner_radius=10, command=self._cargar_presupuestos, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
         self.frame_presupuestos = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
@@ -617,7 +617,7 @@ class FrameGerente(BaseFrame):
                                  corner_radius=10, command=self._abrir_entidad_pago, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_nueva.pack(side="left", padx=5)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
+                                     fg_color="#64748B", hover_color="#475569",
                                      corner_radius=10, command=self._cargar_entidades_pago, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
         self.frame_entidades = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
@@ -680,7 +680,7 @@ class FrameGerente(BaseFrame):
                                  corner_radius=10, command=self._crear_promocion, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_nueva.pack(side="left", padx=5)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
+                                     fg_color="#64748B", hover_color="#475569",
                                      corner_radius=10, command=self._cargar_promociones, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
         self.frame_promociones = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
@@ -753,8 +753,8 @@ class FrameGerente(BaseFrame):
         for etiqueta, clave in campos:
             ctk.CTkLabel(frame_scroll, text=etiqueta, font=("Roboto", 12, "bold"),
                         text_color="#6B7280").pack(anchor="w", pady=(10, 5))
-            entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=35,
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+            entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=38,
+                                  fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
             entrada.pack(fill="x", padx=0, pady=(0, 5))
             if clave == 'tipo':
                 entrada.insert(0, "3x2")
@@ -805,7 +805,7 @@ class FrameGerente(BaseFrame):
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     
@@ -825,7 +825,7 @@ class FrameGerente(BaseFrame):
         frame_acciones = ctk.CTkFrame(tab, fg_color="transparent")
         frame_acciones.pack(fill="x", padx=20, pady=10)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
+                                     fg_color="#64748B", hover_color="#475569",
                                      corner_radius=10, command=self._cargar_notificaciones, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
         self.frame_notificaciones = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)

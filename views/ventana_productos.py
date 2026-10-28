@@ -49,8 +49,8 @@ class FrameProductos(BaseFrame):
         ).pack(side="left")
         
         btn_volver = ctk.CTkButton(barra_superior, text="← Volver", 
-                                  font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
+                                  font=("Roboto", 14), height=40,
+                                  fg_color="#64748B", hover_color="#475569",
                                   corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_volver.pack(side="right", padx=10)
         
@@ -62,17 +62,17 @@ class FrameProductos(BaseFrame):
         ).pack(side="left", padx=10, pady=10)
         
         self.entry_buscar = ctk.CTkEntry(panel_filtros, placeholder_text="Código o nombre...",
-                                        width=250, height=35, font=("Roboto", 13))
+                                        width=250, height=38, font=("Roboto", 13), border_color="#D6DBE3")
         self.entry_buscar.pack(side="left", padx=10, pady=10)
         self.entry_buscar.bind("<Return>", lambda e: self._cargar_productos())
         
-        btn_buscar = ctk.CTkButton(panel_filtros, text="Buscar", height=35,
+        btn_buscar = ctk.CTkButton(panel_filtros, text="Buscar", height=40,
                                   fg_color="#2563EB", hover_color="#2563EB",
                                   corner_radius=10, command=self._cargar_productos, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_buscar.pack(side="left", padx=5, pady=10)
         
-        btn_limpiar = ctk.CTkButton(panel_filtros, text="Limpiar", height=35,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
+        btn_limpiar = ctk.CTkButton(panel_filtros, text="Limpiar", height=40,
+                                   fg_color="#64748B", hover_color="#475569",
                                    corner_radius=10, command=self._limpiar_filtros, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_limpiar.pack(side="left", padx=5, pady=10)
         
@@ -86,7 +86,7 @@ class FrameProductos(BaseFrame):
         self.combo_estado.pack(side="left", padx=5, pady=10)
         self.combo_estado.set("Activos")
         
-        btn_alertas = ctk.CTkButton(panel_filtros, text="⚠️ Alertas Stock", height=35,
+        btn_alertas = ctk.CTkButton(panel_filtros, text="⚠️ Alertas Stock", height=40,
                                    fg_color="#C2410C", hover_color="#9A3412",
                                    corner_radius=10, command=self._mostrar_alertas_stock, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_alertas.pack(side="right", padx=10, pady=10)
@@ -108,22 +108,22 @@ class FrameProductos(BaseFrame):
         btn_agregar = ctk.CTkButton(panel_botones, text="➕ Agregar Producto", height=40,
                                    fg_color="#15803D", hover_color="#166534",
                                    corner_radius=10, command=self._abrir_formulario_alta, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_agregar.pack(side="left", padx=10)
+        btn_agregar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_editar = ctk.CTkButton(panel_botones, text="✏️ Editar", height=40,
                                   fg_color="#2563EB", hover_color="#1D4ED8",
                                   corner_radius=10, command=self._abrir_formulario_edicion, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_editar.pack(side="left", padx=10)
+        btn_editar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_eliminar = ctk.CTkButton(panel_botones, text="🗑️ Dar de Baja", height=40,
                                     fg_color="#DC2626", hover_color="#B91C1C",
                                     corner_radius=10, command=self._eliminar_producto, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_eliminar.pack(side="left", padx=10)
+        btn_eliminar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_reactivar = ctk.CTkButton(panel_botones, text="🔄 Reactivar", height=40,
                                      fg_color="#7C3AED", hover_color="#6D28D9",
                                      corner_radius=10, command=self._reactivar_producto, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_reactivar.pack(side="left", padx=10)
+        btn_reactivar.pack(side="left", padx=10, fill="x", expand=True)
         
         ctk.CTkLabel(panel_botones, text="Seleccione un producto para editar/eliminar", 
                     font=("Roboto", 12), text_color="#8B93A3"
@@ -269,8 +269,8 @@ class FrameProductos(BaseFrame):
             ctk.CTkLabel(frame_scroll, text=f"{etiqueta}:", font=("Roboto", 13, "bold")
             ).pack(anchor="w", pady=(10, 5))
             
-            entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=35,
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+            entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=38,
+                                  fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
             entrada.pack(fill="x", padx=0, pady=(0, 5))
             
             if editar and hasattr(self.producto_seleccionado, clave):
@@ -376,7 +376,7 @@ class FrameProductos(BaseFrame):
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
         
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
+                                    fg_color="#64748B", hover_color="#475569",
                                     corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     

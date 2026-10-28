@@ -343,8 +343,8 @@ class FrameAdministracion(BaseFrame):
             texto.insert("1.0", mensaje)
             texto.configure(state="disabled")
             
-            btn_cerrar = ctk.CTkButton(frame, text="Cerrar", height=35,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
+            btn_cerrar = ctk.CTkButton(frame, text="Cerrar", height=40,
+                                     fg_color="#64748B", hover_color="#475569",
                                      corner_radius=10, command=ventana.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
             btn_cerrar.pack(pady=10)
             

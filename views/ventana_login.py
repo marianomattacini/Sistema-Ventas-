@@ -43,10 +43,10 @@ class FrameLogin(BaseFrame):
         ).pack(anchor="w", padx=40, pady=(10, 5))
 
         self.entry_usuario = ctk.CTkEntry(
-            frame, placeholder_text="Nombre de usuario", height=45,
-            font=Font.BODY, fg_color=Color.NEUTRAL_HOVER, text_color=Color.TEXT_WHITE,
+            frame, placeholder_text="Nombre de usuario", height=38,
+            font=Font.BODY, fg_color=Color.BG_INPUT, text_color=Color.TEXT_PRIMARY,
             corner_radius=10
-        )
+        , border_color="#D6DBE3")
         self.entry_usuario.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_usuario.bind("<Return>", lambda e: self._procesar_login())
 
@@ -58,9 +58,9 @@ class FrameLogin(BaseFrame):
 
         self.entry_pin = ctk.CTkEntry(
             frame, placeholder_text="Ingrese su PIN", show="*",
-            height=45, font=Font.BODY, fg_color=Color.NEUTRAL_HOVER,
-            text_color=Color.TEXT_WHITE, corner_radius=10
-        )
+            height=38, font=Font.BODY, fg_color=Color.BG_INPUT,
+            text_color=Color.TEXT_PRIMARY, corner_radius=10
+        , border_color="#D6DBE3")
         self.entry_pin.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_pin.bind("<Return>", lambda e: self._procesar_login())
 
@@ -72,7 +72,7 @@ class FrameLogin(BaseFrame):
 
         # Botón: Iniciar Sesión
         self.btn_login = ctk.CTkButton(
-            frame, text="INICIAR SESIÓN", height=50,
+            frame, text="INICIAR SESIÓN", height=40,
             font=("Roboto", 16, "bold"), fg_color=Color.ACCENT_STRONG,
             hover_color=Color.ACCENT_HOVER, text_color=Color.TEXT_WHITE,
             corner_radius=15, border_width=2, border_color=Color.ACCENT_HOVER,
@@ -82,9 +82,9 @@ class FrameLogin(BaseFrame):
 
         # Botón: Ver Estado de Operadores
         self.btn_estado = ctk.CTkButton(
-            frame, text="Ver Estado de Operadores", height=35,
-            font=Font.SMALL, fg_color=Color.NEUTRAL_HOVER, hover_color=Color.NEUTRAL,
-            text_color=Color.TEXT_SECONDARY, corner_radius=10,
+            frame, text="Ver Estado de Operadores", height=40,
+            font=Font.BUTTON, fg_color=Color.NEUTRAL, hover_color=Color.NEUTRAL_HOVER,
+            text_color=Color.TEXT_WHITE, corner_radius=10,
             command=self._mostrar_estado_operadores
         , border_width=1, border_color="#CBD2DC")
         self.btn_estado.pack(fill="x", padx=40, pady=(0, 20))

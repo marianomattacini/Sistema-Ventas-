@@ -31,8 +31,8 @@ class FrameConfiguracion(BaseFrame):
         for etiqueta, clave in campos:
             ctk.CTkLabel(frame, text=f"{etiqueta}:", font=("Roboto", 13, "bold")
             ).pack(anchor="w", padx=40, pady=(10, 5))
-            entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=35,
-                                 fg_color="#D6DBE3", text_color="#1A2233")
+            entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=38,
+                                 fg_color="#F4F6F9", text_color="#1A2233", border_color="#D6DBE3")
             entrada.pack(fill="x", padx=40, pady=(0, 5))
             if clave in configs:
                 entrada.insert(0, configs[clave])
@@ -57,6 +57,6 @@ class FrameConfiguracion(BaseFrame):
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
+                                   fg_color="#64748B", hover_color="#475569",
                                    corner_radius=10, command=self.controller.volver, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
