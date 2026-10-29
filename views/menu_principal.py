@@ -17,7 +17,7 @@ class MenuPrincipal(ctk.CTkFrame):
         self.grid_columnconfigure(2, weight=1)
 
         # Frame central
-        frame_central = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame_central = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame_central.grid(row=1, column=1, padx=20, pady=20, sticky="nsew")
 
         # Título y bienvenida
@@ -26,7 +26,7 @@ class MenuPrincipal(ctk.CTkFrame):
         ).pack(pady=(30, 10))
 
         ctk.CTkLabel(frame_central, text=f"Rol: {self.usuario.rol}",
-                    font=("Roboto", 16), text_color="#6B7280"
+                    font=("Roboto", 16), text_color="#5A5347"
         ).pack(pady=(0, 30))
 
         # Botones según rol
@@ -36,7 +36,7 @@ class MenuPrincipal(ctk.CTkFrame):
         ctk.CTkButton(frame_central, text="🚪 Cerrar Sesión", height=40,
                      fg_color="#DC2626", hover_color="#B91C1C",
                      corner_radius=10, command=self.controller.cerrar_sesion
-        , border_width=1, border_color="#CBD2DC", text_color="#FFFFFF").pack(pady=(30, 20))
+        , border_width=2, border_color="#9C927F", text_color="#FFFFFF").pack(pady=(30, 20))
 
     def _crear_botones(self, parent):
         """Crea los botones según el rol del usuario."""
@@ -49,10 +49,10 @@ class MenuPrincipal(ctk.CTkFrame):
 
         # Función para crear botones
         def crear_boton(fila, columna, texto, comando, color="#2563EB"):
-            btn = ctk.CTkButton(frame_botones, text=texto, height=60,
+            btn = ctk.CTkButton(frame_botones, text=texto, height=40,
                               font=("Roboto", 16, "bold"), fg_color=color,
                               hover_color="#2563EB" if color == "#2563EB" else color,
-                              corner_radius=12, command=comando, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                              corner_radius=12, command=comando, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
             btn.grid(row=fila, column=columna, padx=10, pady=10, sticky="nsew")
             return btn
 

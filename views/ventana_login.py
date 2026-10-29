@@ -39,28 +39,28 @@ class FrameLogin(BaseFrame):
         # Campo: Usuario
         ctk.CTkLabel(
             frame, text="Usuario", font=Font.BODY,
-            text_color="#1A2233"
+            text_color="#1F1B16"
         ).pack(anchor="w", padx=40, pady=(10, 5))
 
         self.entry_usuario = ctk.CTkEntry(
-            frame, placeholder_text="Nombre de usuario", height=45,
-            font=Font.BODY, fg_color=Color.NEUTRAL_HOVER, text_color=Color.TEXT_WHITE,
+            frame, placeholder_text="Nombre de usuario", height=38,
+            font=Font.BODY, fg_color=Color.BG_INPUT, text_color=Color.TEXT_PRIMARY,
             corner_radius=10
-        )
+        , border_color="#9C927F")
         self.entry_usuario.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_usuario.bind("<Return>", lambda e: self._procesar_login())
 
         # Campo: PIN
         ctk.CTkLabel(
             frame, text="PIN", font=Font.BODY,
-            text_color="#1A2233"
+            text_color="#1F1B16"
         ).pack(anchor="w", padx=40, pady=(10, 5))
 
         self.entry_pin = ctk.CTkEntry(
             frame, placeholder_text="Ingrese su PIN", show="*",
-            height=45, font=Font.BODY, fg_color=Color.NEUTRAL_HOVER,
-            text_color=Color.TEXT_WHITE, corner_radius=10
-        )
+            height=38, font=Font.BODY, fg_color=Color.BG_INPUT,
+            text_color=Color.TEXT_PRIMARY, corner_radius=10
+        , border_color="#9C927F")
         self.entry_pin.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_pin.bind("<Return>", lambda e: self._procesar_login())
 
@@ -72,7 +72,7 @@ class FrameLogin(BaseFrame):
 
         # Botón: Iniciar Sesión
         self.btn_login = ctk.CTkButton(
-            frame, text="INICIAR SESIÓN", height=50,
+            frame, text="INICIAR SESIÓN", height=40,
             font=("Roboto", 16, "bold"), fg_color=Color.ACCENT_STRONG,
             hover_color=Color.ACCENT_HOVER, text_color=Color.TEXT_WHITE,
             corner_radius=15, border_width=2, border_color=Color.ACCENT_HOVER,
@@ -82,11 +82,11 @@ class FrameLogin(BaseFrame):
 
         # Botón: Ver Estado de Operadores
         self.btn_estado = ctk.CTkButton(
-            frame, text="Ver Estado de Operadores", height=35,
-            font=Font.SMALL, fg_color=Color.NEUTRAL_HOVER, hover_color=Color.NEUTRAL,
-            text_color=Color.TEXT_SECONDARY, corner_radius=10,
+            frame, text="Ver Estado de Operadores", height=40,
+            font=Font.BUTTON, fg_color=Color.NEUTRAL, hover_color=Color.NEUTRAL_HOVER,
+            text_color=Color.TEXT_WHITE, corner_radius=10,
             command=self._mostrar_estado_operadores
-        , border_width=1, border_color="#CBD2DC")
+        , border_width=2, border_color="#9C927F")
         self.btn_estado.pack(fill="x", padx=40, pady=(0, 20))
 
         self.entry_usuario.focus_set()
@@ -118,8 +118,9 @@ class FrameLogin(BaseFrame):
     def _login_exitoso(self, usuario_obj):
         """Redirige según el rol del usuario (el controlador decide la pantalla)."""
         if usuario_obj.rol in ["Cajero", "Supervisor"]:
-            turno_abierto = Turno.obtener_turno_abierto()
-            if turno_abierto and turno_abierto[1] == usuario_obj.id:
+            # Se busca la caja abierta de ESTE usuario (aunque haya otras abiertas)
+            turno_abierto = Turno.obtener_turno_abierto(usuario_obj.id)
+            if turno_abierto:
                 self.controller.iniciar_sesion(usuario_obj, turno_abierto[0])
             else:
                 self.controller.iniciar_sesion(usuario_obj, None)

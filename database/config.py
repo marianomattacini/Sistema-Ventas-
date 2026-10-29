@@ -1,8 +1,12 @@
 import os
 import sys
 import sqlite3
-import psycopg2
-from psycopg2 import Error
+try:
+    import psycopg2
+    from psycopg2 import Error
+except ImportError:
+    psycopg2 = None
+    Error = Exception
 from dotenv import load_dotenv
 
 # Permite ejecutar este archivo directamente (python database/config.py)
@@ -63,6 +67,10 @@ def get_postgres_connection():
     """
     Retorna una conexión a PostgreSQL usando variables de entorno.
     """
+    if psycopg2 is None:
+        print("❌ PostgreSQL no está disponible: falta instalar psycopg2-binary.")
+        print("   Ejecutá: python -m pip install -r requirements.txt")
+        return None
     try:
         conn = psycopg2.connect(
             host=PG_HOST,

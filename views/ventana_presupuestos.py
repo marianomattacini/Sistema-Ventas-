@@ -16,12 +16,12 @@ class FramePresupuestos(BaseFrame):
         self.presupuesto_id = presupuesto_id
         self.presupuesto = Presupuesto.obtener_por_id(presupuesto_id) if presupuesto_id else None
 
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
 
         self._crear_widgets()
 
     def _crear_widgets(self):
-        frame = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame.pack(fill="both", expand=True, padx=20, pady=20)
 
         titulo = "Editar Presupuesto" if self.presupuesto else "Nuevo Presupuesto"
@@ -33,8 +33,8 @@ class FramePresupuestos(BaseFrame):
         ).pack(anchor="w", padx=40, pady=(10, 5))
         categoria_actual = getattr(self.presupuesto, 'categoria', None) if self.presupuesto else None
         combo_categoria = ctk.CTkOptionMenu(frame, values=CATEGORIAS, width=200, height=35,
-                                           font=("Roboto", 13), fg_color="#D6DBE3",
-                                           text_color="#1A2233", button_color="#2563EB",
+                                           font=("Roboto", 13), fg_color="#D6CDBE",
+                                           text_color="#1F1B16", button_color="#2563EB",
                                            corner_radius=10)
         combo_categoria.pack(anchor="w", padx=40, pady=(0, 5))
         combo_categoria.set(categoria_actual if categoria_actual in CATEGORIAS else CATEGORIAS[0])
@@ -42,9 +42,9 @@ class FramePresupuestos(BaseFrame):
         # --- Monto planificado (único campo manual) ---
         ctk.CTkLabel(frame, text="Monto Planificado:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", padx=40, pady=(10, 5))
-        entry_monto = ctk.CTkEntry(frame, font=("Roboto", 13), height=35, width=200,
-                                  fg_color="#D6DBE3", text_color="#1A2233",
-                                  placeholder_text="Ej: 150000")
+        entry_monto = ctk.CTkEntry(frame, font=("Roboto", 13), height=38, width=200,
+                                  fg_color="#FFFDF9", text_color="#1F1B16",
+                                  placeholder_text="Ej: 150000", border_color="#9C927F")
         entry_monto.pack(anchor="w", padx=40, pady=(0, 5))
         if self.presupuesto and self.presupuesto.monto_planificado:
             entry_monto.insert(0, str(self.presupuesto.monto_planificado))
@@ -54,8 +54,8 @@ class FramePresupuestos(BaseFrame):
         ).pack(anchor="w", padx=40, pady=(10, 5))
         mes_actual = getattr(self.presupuesto, 'mes', None) if self.presupuesto else datetime.now().month
         combo_mes = ctk.CTkOptionMenu(frame, values=MESES, width=140, height=35,
-                                     font=("Roboto", 13), fg_color="#D6DBE3",
-                                     text_color="#1A2233", button_color="#2563EB",
+                                     font=("Roboto", 13), fg_color="#D6CDBE",
+                                     text_color="#1F1B16", button_color="#2563EB",
                                      corner_radius=10)
         combo_mes.pack(anchor="w", padx=40, pady=(0, 5))
         try:
@@ -70,8 +70,8 @@ class FramePresupuestos(BaseFrame):
         anios_disponibles = [str(a) for a in range(anio_hoy - 1, anio_hoy + 4)]
         anio_actual = getattr(self.presupuesto, 'anio', None) if self.presupuesto else anio_hoy
         combo_anio = ctk.CTkOptionMenu(frame, values=anios_disponibles, width=100, height=35,
-                                      font=("Roboto", 13), fg_color="#D6DBE3",
-                                      text_color="#1A2233", button_color="#2563EB",
+                                      font=("Roboto", 13), fg_color="#D6CDBE",
+                                      text_color="#1F1B16", button_color="#2563EB",
                                       corner_radius=10)
         combo_anio.pack(anchor="w", padx=40, pady=(0, 5))
         combo_anio.set(str(anio_actual) if str(anio_actual) in anios_disponibles else str(anio_hoy))
@@ -122,10 +122,10 @@ class FramePresupuestos(BaseFrame):
 
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
                                   fg_color="#15803D", hover_color="#166534",
-                                  corner_radius=10, command=guardar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                  corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
-                                   corner_radius=10, command=self.controller.volver, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   fg_color="#64748B", hover_color="#475569",
+                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)

@@ -29,7 +29,7 @@ class FrameTurnos(BaseFrame):
             return
         
         # Configuración de la pantalla
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
         
         # Estado
         self.turno_seleccionado = None
@@ -41,7 +41,7 @@ class FrameTurnos(BaseFrame):
     
     def _crear_widgets(self):
         # Frame principal
-        frame_principal = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame_principal = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame_principal.pack(fill="both", expand=True, padx=20, pady=20)
         
         # Barra superior
@@ -52,13 +52,9 @@ class FrameTurnos(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
-                                  corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_volver.pack(side="right", padx=10)
         
         # Panel de filtros
-        panel_filtros = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_filtros = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_filtros.pack(fill="x", padx=20, pady=10)
         
         ctk.CTkLabel(panel_filtros, text="🔍 Filtros:", font=("Roboto", 14, "bold")
@@ -82,48 +78,48 @@ class FrameTurnos(BaseFrame):
         self.combo_operador.set("Todos")
         
         # Botón refrescar
-        btn_refrescar = ctk.CTkButton(panel_filtros, text="🔄 Refrescar", height=35,
+        btn_refrescar = ctk.CTkButton(panel_filtros, text="🔄 Refrescar", height=40,
                                      fg_color="#2563EB", hover_color="#2563EB",
-                                     corner_radius=10, command=self._cargar_turnos, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                     corner_radius=10, command=self._cargar_turnos, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_refrescar.pack(side="right", padx=10, pady=10)
         
         # Tabla de turnos
-        self.frame_tabla = ctk.CTkScrollableFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_tabla = ctk.CTkScrollableFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_tabla.pack(fill="both", expand=True, padx=20, pady=10)
         
         # Encabezados
         encabezados = ["ID", "Cajero", "Apertura", "Cierre", "Fondo Inicial", "Total Ventas", "Estado", "Acciones"]
         for i, texto in enumerate(encabezados):
             ctk.CTkLabel(self.frame_tabla, text=texto, font=("Roboto", 13, "bold"),
-                        text_color="#6B7280").grid(row=0, column=i, padx=10, pady=5, sticky="w")
+                        text_color="#5A5347").grid(row=0, column=i, padx=10, pady=5, sticky="w")
         
         # Panel de acciones rápidas
-        panel_acciones = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_acciones = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_acciones.pack(fill="x", padx=20, pady=(10, 20))
         
         btn_sangria = ctk.CTkButton(panel_acciones, text="💰 Registrar Sangría", height=40,
                                    fg_color="#C2410C", hover_color="#9A3412",
-                                   corner_radius=10, command=self._registrar_sangria, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_sangria.pack(side="left", padx=10)
+                                   corner_radius=10, command=self._registrar_sangria, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_sangria.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_cerrar = ctk.CTkButton(panel_acciones, text="🔒 Cerrar Turno Seleccionado", height=40,
                                   fg_color="#2563EB", hover_color="#1D4ED8",
-                                  corner_radius=10, command=self._cerrar_turno, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_cerrar.pack(side="left", padx=10)
+                                  corner_radius=10, command=self._cerrar_turno, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_cerrar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_forzar = ctk.CTkButton(panel_acciones, text="⚠️ Forzar Cierre", height=40,
                                   fg_color="#DC2626", hover_color="#B91C1C",
-                                  corner_radius=10, command=self._forzar_cierre, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_forzar.pack(side="left", padx=10)
+                                  corner_radius=10, command=self._forzar_cierre, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_forzar.pack(side="left", padx=10, fill="x", expand=True)
         
         # NUEVO BOTÓN: Generar Reporte
         btn_reporte = ctk.CTkButton(panel_acciones, text="📄 Generar Reporte", height=40,
                                    fg_color="#7C3AED", hover_color="#6D28D9",
-                                   corner_radius=10, command=self._generar_reporte, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_reporte.pack(side="left", padx=10)
+                                   corner_radius=10, command=self._generar_reporte, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_reporte.pack(side="left", padx=10, fill="x", expand=True)
         
         ctk.CTkLabel(panel_acciones, text="Seleccione un turno para cerrar o forzar cierre", 
-                    font=("Roboto", 12), text_color="#8B93A3"
+                    font=("Roboto", 12), text_color="#7A7264"
         ).pack(side="right", padx=20)
     
     def _obtener_operadores(self):
@@ -172,7 +168,7 @@ class FrameTurnos(BaseFrame):
             
             if not rows:
                 ctk.CTkLabel(self.frame_tabla, text="No hay turnos para mostrar", 
-                            font=("Roboto", 14), text_color="#8B93A3"
+                            font=("Roboto", 14), text_color="#7A7264"
                 ).grid(row=1, column=0, columnspan=8, padx=10, pady=20)
                 return
             
@@ -190,7 +186,7 @@ class FrameTurnos(BaseFrame):
                     "Abierto": "#15803D",
                     "Cerrado": "#2563EB",
                     "Forzado": "#C2410C"
-                }.get(estado, "#8B93A3")
+                }.get(estado, "#7A7264")
                 
                 ctk.CTkLabel(self.frame_tabla, text=str(turno_id), 
                             font=("Roboto", 13)).grid(row=i, column=0, padx=10, pady=5, sticky="w")
@@ -212,8 +208,8 @@ class FrameTurnos(BaseFrame):
                 
                 # Botón de selección
                 btn_selector = ctk.CTkButton(self.frame_tabla, text="Seleccionar", width=80, height=25,
-                                            fg_color="#D6DBE3", hover_color="#64748B",
-                                            corner_radius=5, command=lambda t=turno_id: self._seleccionar_turno(t), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
+                                            fg_color="#D6CDBE", hover_color="#64748B",
+                                            corner_radius=5, command=lambda t=turno_id: self._seleccionar_turno(t), border_width=2, border_color="#9C927F", text_color="#1F1B16")
                 btn_selector.grid(row=i, column=7, padx=10, pady=5)
             
         except Exception as e:
@@ -250,25 +246,13 @@ class FrameTurnos(BaseFrame):
             info += f"💳 **Crédito:** ${turno.total_ventas_credito:.2f}\n"
             info += f"🔄 **Transferencia:** ${turno.total_ventas_transferencia:.2f}\n"
             info += f"📤 **Sangrías:** ${turno.total_sangrias:.2f}\n"
+            info += f"💼 **Efectivo esperado en caja:** ${turno.fondo_inicial + turno.total_ventas_efectivo - turno.total_sangrias:.2f}\n"
             
             # Preguntar si quiere generar reporte PDF
             if messagebox.askyesno("Turno Seleccionado", 
                                    f"{info}\n\n¿Desea generar un reporte en PDF de este turno?"):
                 # Generar reporte
-                datos_reporte = {
-                    'turno_id': turno_id,
-                    'cajero': usuario.nombre_usuario if usuario else 'Desconocido',
-                    'apertura': turno.fecha_hora_apertura,
-                    'cierre': turno.fecha_hora_cierre or 'Abierto',
-                    'estado': turno.estado,
-                    'fondo_inicial': turno.fondo_inicial,
-                    'total_efectivo': turno.total_ventas_efectivo,
-                    'total_debito': turno.total_ventas_debito,
-                    'total_credito': turno.total_ventas_credito,
-                    'total_transferencia': turno.total_ventas_transferencia,
-                    'total_sangrias': turno.total_sangrias,
-                    'total_ventas': total_ventas
-                }
+                datos_reporte = Turno.datos_reporte(turno_id)
                 generar_reporte_turno_pdf(datos_reporte)
             else:
                 # Solo mostrar la información
@@ -287,8 +271,8 @@ class FrameTurnos(BaseFrame):
             return
         
         # Verificar que el turno esté abierto
-        turno_abierto = Turno.obtener_turno_abierto()
-        if not turno_abierto or turno_abierto[0] != self.turno_seleccionado:
+        turno_sel = Turno.obtener_turno_por_id(self.turno_seleccionado)
+        if not turno_sel or turno_sel.estado != "Abierto":
             messagebox.showerror("Error", "El turno seleccionado no está abierto.\nSolo se pueden cerrar turnos abiertos.")
             return
         
@@ -359,20 +343,7 @@ class FrameTurnos(BaseFrame):
         total_ventas = (turno.total_ventas_efectivo + turno.total_ventas_debito + 
                         turno.total_ventas_credito + turno.total_ventas_transferencia)
         
-        datos_reporte = {
-            'turno_id': self.turno_seleccionado,
-            'cajero': usuario.nombre_usuario if usuario else 'Desconocido',
-            'apertura': turno.fecha_hora_apertura,
-            'cierre': turno.fecha_hora_cierre or 'Abierto',
-            'estado': turno.estado,
-            'fondo_inicial': turno.fondo_inicial,
-            'total_efectivo': turno.total_ventas_efectivo,
-            'total_debito': turno.total_ventas_debito,
-            'total_credito': turno.total_ventas_credito,
-            'total_transferencia': turno.total_ventas_transferencia,
-            'total_sangrias': turno.total_sangrias,
-            'total_ventas': total_ventas
-        }
+        datos_reporte = Turno.datos_reporte(self.turno_seleccionado)
         generar_reporte_turno_pdf(datos_reporte)
     
     # =====================================================================
@@ -385,8 +356,8 @@ class FrameTurnos(BaseFrame):
             return
         
         # Verificar que el turno esté abierto
-        turno_abierto = Turno.obtener_turno_abierto()
-        if not turno_abierto or turno_abierto[0] != self.turno_seleccionado:
+        turno_sel = Turno.obtener_turno_por_id(self.turno_seleccionado)
+        if not turno_sel or turno_sel.estado != "Abierto":
             messagebox.showerror("Error", "El turno seleccionado no está abierto.\nSolo se pueden registrar sangrías en turnos abiertos.")
             return
         
@@ -399,7 +370,7 @@ class FrameTurnos(BaseFrame):
         dialog = ctk.CTkToplevel(self)
         dialog.title("Registrar Sangría")
         dialog.geometry("400x380")
-        dialog.configure(fg_color="#F9FAFB")
+        dialog.configure(fg_color="#FBF8F3")
         dialog.resizable(False, False)
         
         dialog.update_idletasks()
@@ -417,16 +388,16 @@ class FrameTurnos(BaseFrame):
         ctk.CTkLabel(frame, text="Monto a retirar:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
         
-        entry_monto = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16),
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+        entry_monto = ctk.CTkEntry(frame, placeholder_text="0.00", font=("Roboto", 16), height=38,
+                                  fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
         entry_monto.pack(fill="x", pady=(0, 10))
         entry_monto.focus_set()
         
         ctk.CTkLabel(frame, text="Motivo:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
         
-        entry_motivo = ctk.CTkEntry(frame, placeholder_text="Ej. Pago a proveedor, cambio...", font=("Roboto", 13),
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+        entry_motivo = ctk.CTkEntry(frame, placeholder_text="Ej. Pago a proveedor, cambio...", font=("Roboto", 13), height=38,
+                                  fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
         entry_motivo.pack(fill="x", pady=(0, 10))
         
         # Botones
@@ -462,7 +433,7 @@ class FrameTurnos(BaseFrame):
                 cursor.execute('''
                     INSERT INTO sangrias (turno_id, cajero_id, supervisor_id, fecha_hora, monto_retirado, motivo)
                     VALUES (?, ?, ?, ?, ?, ?)
-                ''', (self.turno_seleccionado, turno_abierto[1], self.usuario_actual.id, fecha, monto, motivo))
+                ''', (self.turno_seleccionado, turno_sel.usuario_id, self.usuario_actual.id, fecha, monto, motivo))
                 
                 # Actualizar total_sangrias en turnos
                 cursor.execute('''
@@ -487,12 +458,12 @@ class FrameTurnos(BaseFrame):
         
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Registrar", height=40,
                                    fg_color="#15803D", hover_color="#166534",
-                                   corner_radius=10, command=guardar_sangria, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=guardar_sangria, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
         
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
-                                    corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                    fg_color="#64748B", hover_color="#475569",
+                                    corner_radius=10, command=dialog.destroy, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     
     # =====================================================================

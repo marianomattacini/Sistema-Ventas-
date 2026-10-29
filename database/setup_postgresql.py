@@ -1,6 +1,45 @@
-import psycopg2
-from psycopg2 import Error
-from database.config import get_postgres_connection
+import os
+import sys
+
+# Permite ejecutar este archivo directamente desde cualquier carpeta.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    import psycopg2
+    from psycopg2 import Error, sql
+except ImportError:
+    psycopg2 = None
+    Error = Exception
+    sql = None
+
+from database.config import (
+    get_postgres_connection, PG_HOST, PG_PORT, PG_DATABASE, PG_USER, PG_PASSWORD
+)
+
+def asegurar_base_postgresql():
+    """Crea PG_DATABASE si todavía no existe, conectándose primero a postgres."""
+    if psycopg2 is None:
+        print("❌ Falta psycopg2-binary. Ejecutá: python -m pip install -r requirements.txt")
+        return False
+    try:
+        conn = psycopg2.connect(
+            host=PG_HOST, port=PG_PORT, database="postgres",
+            user=PG_USER, password=PG_PASSWORD
+        )
+        conn.autocommit = True
+        cur = conn.cursor()
+        cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (PG_DATABASE,))
+        if cur.fetchone() is None:
+            cur.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(PG_DATABASE)))
+            print(f"✅ Base PostgreSQL '{PG_DATABASE}' creada.")
+        else:
+            print(f"ℹ️ Base PostgreSQL '{PG_DATABASE}' ya existe.")
+        cur.close(); conn.close()
+        return True
+    except Exception as e:
+        print(f"❌ No se pudo preparar PostgreSQL: {e}")
+        print("   Revisá que PostgreSQL esté iniciado y que .env tenga usuario/clave/puerto correctos.")
+        return False
 
 # =====================================================================
 # CREACIÓN DE TABLAS EN POSTGRESQL
@@ -160,8 +199,15 @@ if __name__ == "__main__":
     print("🏦 CONFIGURANDO BASE DE DATOS FINANCIERA (POSTGRESQL)")
     print("=" * 50)
     
-    if crear_tablas_postgresql():
-        insertar_clientes_bancarios()
-    
+    ok = asegurar_base_postgresql()
+    if ok:
+        ok = crear_tablas_postgresql()
+    if ok:
+        ok = insertar_clientes_bancarios()
+
     print("=" * 50)
-    print("✅ Proceso completado.")
+    if ok:
+        print(f"✅ PostgreSQL listo: {PG_DATABASE}")
+        sys.exit(0)
+    print("❌ No se pudo configurar PostgreSQL.")
+    sys.exit(1)

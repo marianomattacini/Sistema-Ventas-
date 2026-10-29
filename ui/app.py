@@ -198,18 +198,20 @@ class App(ctk.CTk):
         self.frame_actual = frame
         self.pantalla_actual = nombre
 
-        con_chrome = nombre not in PANTALLAS_SIN_CHROME
-        self._mostrar_chrome(con_chrome)
-        if con_chrome:
-            self.sidebar.actualizar(nombre)
-            self.header.actualizar(nombre)
-
+        # El historial se actualiza ANTES de redibujar el header, para que el
+        # botón "Volver" refleje el estado real y no el de la pantalla anterior.
         if agregar_historial:
             # Evita duplicar la misma pantalla consecutiva en el historial
             if not self.historial or self.historial[-1][0] != nombre:
                 self.historial.append((nombre, kwargs))
             else:
                 self.historial[-1] = (nombre, kwargs)
+
+        con_chrome = nombre not in PANTALLAS_SIN_CHROME
+        self._mostrar_chrome(con_chrome)
+        if con_chrome:
+            self.sidebar.actualizar(nombre)
+            self.header.actualizar(nombre)
 
     def volver(self):
         """Vuelve a la pantalla anterior del historial."""

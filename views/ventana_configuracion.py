@@ -7,12 +7,12 @@ class FrameConfiguracion(BaseFrame):
     def __init__(self, parent, controller, usuario_actual, **kwargs):
         super().__init__(parent, controller, usuario_actual)
 
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
 
         self._crear_widgets()
 
     def _crear_widgets(self):
-        frame = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame.pack(fill="both", expand=True, padx=20, pady=20)
 
         ctk.CTkLabel(frame, text="⚙️ Configuración del Sistema", 
@@ -31,8 +31,8 @@ class FrameConfiguracion(BaseFrame):
         for etiqueta, clave in campos:
             ctk.CTkLabel(frame, text=f"{etiqueta}:", font=("Roboto", 13, "bold")
             ).pack(anchor="w", padx=40, pady=(10, 5))
-            entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=35,
-                                 fg_color="#D6DBE3", text_color="#1A2233")
+            entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=38,
+                                 fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
             entrada.pack(fill="x", padx=40, pady=(0, 5))
             if clave in configs:
                 entrada.insert(0, configs[clave])
@@ -53,10 +53,10 @@ class FrameConfiguracion(BaseFrame):
 
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
                                   fg_color="#15803D", hover_color="#166534",
-                                  corner_radius=10, command=guardar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                  corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
-                                   corner_radius=10, command=self.controller.volver, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   fg_color="#64748B", hover_color="#475569",
+                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)

@@ -26,7 +26,7 @@ class FrameProveedores(BaseFrame):
             return
         
         # Configuración de la pantalla
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
         
         # Estado
         self.proveedor_seleccionado = None
@@ -37,7 +37,7 @@ class FrameProveedores(BaseFrame):
     
     def _crear_widgets(self):
         # Frame principal
-        frame_principal = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame_principal = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame_principal.pack(fill="both", expand=True, padx=20, pady=20)
         
         # Barra superior
@@ -48,69 +48,65 @@ class FrameProveedores(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
-                                  corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_volver.pack(side="right", padx=10)
         
         # Panel de búsqueda
-        panel_busqueda = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_busqueda = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_busqueda.pack(fill="x", padx=20, pady=10)
         
         ctk.CTkLabel(panel_busqueda, text="🔍 Buscar:", font=("Roboto", 14, "bold")
         ).pack(side="left", padx=10, pady=10)
         
         self.entry_buscar = ctk.CTkEntry(panel_busqueda, placeholder_text="CUIT, razón social o teléfono...",
-                                        width=300, height=35, font=("Roboto", 13))
+                                        width=300, height=38, font=("Roboto", 13), border_color="#9C927F")
         self.entry_buscar.pack(side="left", padx=10, pady=10)
         self.entry_buscar.bind("<Return>", lambda e: self._cargar_proveedores())
         
-        btn_buscar = ctk.CTkButton(panel_busqueda, text="Buscar", height=35,
+        btn_buscar = ctk.CTkButton(panel_busqueda, text="Buscar", height=40,
                                   fg_color="#2563EB", hover_color="#2563EB",
-                                  corner_radius=10, command=self._cargar_proveedores, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                  corner_radius=10, command=self._cargar_proveedores, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_buscar.pack(side="left", padx=5, pady=10)
         
-        btn_limpiar = ctk.CTkButton(panel_busqueda, text="Limpiar", height=35,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
-                                   corner_radius=10, command=self._limpiar_filtros, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+        btn_limpiar = ctk.CTkButton(panel_busqueda, text="Limpiar", height=40,
+                                   fg_color="#64748B", hover_color="#475569",
+                                   corner_radius=10, command=self._limpiar_filtros, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_limpiar.pack(side="left", padx=5, pady=10)
         
         # Tabla de proveedores
-        self.frame_tabla = ctk.CTkScrollableFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_tabla = ctk.CTkScrollableFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_tabla.pack(fill="both", expand=True, padx=20, pady=10)
         
         # Encabezados
         encabezados = ["Seleccionar", "CUIT", "Razón Social", "Teléfono", "Email", "Estado"]
         for i, texto in enumerate(encabezados):
             ctk.CTkLabel(self.frame_tabla, text=texto, font=("Roboto", 14, "bold"),
-                        text_color="#6B7280").grid(row=0, column=i, padx=10, pady=5, sticky="w")
+                        text_color="#5A5347").grid(row=0, column=i, padx=10, pady=5, sticky="w")
         
         # Panel de botones
-        panel_botones = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_botones = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_botones.pack(fill="x", padx=20, pady=(10, 20))
         
         btn_agregar = ctk.CTkButton(panel_botones, text="➕ Agregar Proveedor", height=40,
                                    fg_color="#15803D", hover_color="#166534",
-                                   corner_radius=10, command=self._abrir_formulario_alta, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_agregar.pack(side="left", padx=10)
+                                   corner_radius=10, command=self._abrir_formulario_alta, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_agregar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_editar = ctk.CTkButton(panel_botones, text="✏️ Editar", height=40,
                                   fg_color="#2563EB", hover_color="#1D4ED8",
-                                  corner_radius=10, command=self._abrir_formulario_edicion, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_editar.pack(side="left", padx=10)
+                                  corner_radius=10, command=self._abrir_formulario_edicion, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_editar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_eliminar = ctk.CTkButton(panel_botones, text="🗑️ Dar de Baja", height=40,
                                     fg_color="#DC2626", hover_color="#B91C1C",
-                                    corner_radius=10, command=self._eliminar_proveedor, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_eliminar.pack(side="left", padx=10)
+                                    corner_radius=10, command=self._eliminar_proveedor, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_eliminar.pack(side="left", padx=10, fill="x", expand=True)
         
         btn_reactivar = ctk.CTkButton(panel_botones, text="🔄 Reactivar", height=40,
                                      fg_color="#7C3AED", hover_color="#6D28D9",
-                                     corner_radius=10, command=self._reactivar_proveedor, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_reactivar.pack(side="left", padx=10)
+                                     corner_radius=10, command=self._reactivar_proveedor, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        btn_reactivar.pack(side="left", padx=10, fill="x", expand=True)
         
         ctk.CTkLabel(panel_botones, text="Seleccione un proveedor para editar", 
-                    font=("Roboto", 12), text_color="#8B93A3"
+                    font=("Roboto", 12), text_color="#7A7264"
         ).pack(side="right", padx=20)
     
     def _cargar_proveedores(self):
@@ -131,14 +127,14 @@ class FrameProveedores(BaseFrame):
         
         if not proveedores:
             ctk.CTkLabel(self.frame_tabla, text="No hay proveedores para mostrar", 
-                        font=("Roboto", 14), text_color="#8B93A3"
+                        font=("Roboto", 14), text_color="#7A7264"
             ).grid(row=1, column=0, columnspan=6, padx=10, pady=20)
             return
         
         for i, proveedor in enumerate(proveedores, start=1):
             btn_selector = ctk.CTkButton(self.frame_tabla, text="Seleccionar", width=80, height=25,
-                                        fg_color="#D6DBE3", hover_color="#64748B",
-                                        corner_radius=5, command=lambda p=proveedor: self._seleccionar_proveedor(p), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
+                                        fg_color="#D6CDBE", hover_color="#64748B",
+                                        corner_radius=5, command=lambda p=proveedor: self._seleccionar_proveedor(p), border_width=2, border_color="#9C927F", text_color="#1F1B16")
             btn_selector.grid(row=i, column=0, padx=10, pady=5)
             
             ctk.CTkLabel(self.frame_tabla, text=proveedor.cuit, 
@@ -177,7 +173,7 @@ class FrameProveedores(BaseFrame):
         dialog = ctk.CTkToplevel(self)
         dialog.title("Editar Proveedor" if editar else "Nuevo Proveedor")
         dialog.geometry("450x550")
-        dialog.configure(fg_color="#F9FAFB")
+        dialog.configure(fg_color="#FBF8F3")
         dialog.resizable(False, False)
         
         dialog.transient(self.winfo_toplevel())
@@ -208,8 +204,8 @@ class FrameProveedores(BaseFrame):
         for etiqueta, clave, obligatorio in campos:
             ctk.CTkLabel(frame, text=f"{etiqueta}:", font=("Roboto", 13, "bold")
             ).pack(anchor="w", pady=(10, 5))
-            entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=35,
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+            entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=38,
+                                  fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
             entrada.pack(fill="x", padx=0, pady=(0, 5))
             if editar and hasattr(self.proveedor_seleccionado, clave):
                 valor = getattr(self.proveedor_seleccionado, clave, "")
@@ -292,12 +288,12 @@ class FrameProveedores(BaseFrame):
         
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
                                    fg_color="#15803D", hover_color="#166534",
-                                   corner_radius=10, command=guardar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
         
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
-                                    corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                    fg_color="#64748B", hover_color="#475569",
+                                    corner_radius=10, command=dialog.destroy, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     
     def _eliminar_proveedor(self):

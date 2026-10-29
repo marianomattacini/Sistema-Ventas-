@@ -15,17 +15,17 @@ import customtkinter as ctk
 # ---------------------------------------------------------------------------
 class Color:
     # Fondos
-    BG_APP = "#FFFFFF"          # fondo general de la app (contenido principal)
-    BG_BASE = "#F4F6F9"         # fondo de paneles/secciones
-    BG_CARD = "#F9FAFB"         # tarjetas / contenedores
-    BG_CARD_ALT = "#F1F3F6"     # variante levemente distinta para anidar
-    BG_INPUT = "#F4F6F9"        # fondo de inputs
-    BORDER = "#D6DBE3"
+    BG_APP = "#EFEAE2"          # fondo general de la app (contenido principal)
+    BG_BASE = "#E3DCD0"         # fondo de paneles/secciones
+    BG_CARD = "#FBF8F3"         # tarjetas / contenedores
+    BG_CARD_ALT = "#F1ECE3"     # variante levemente distinta para anidar
+    BG_INPUT = "#FFFDF9"        # fondo de inputs
+    BORDER = "#9C927F"
 
     # Texto
-    TEXT_PRIMARY = "#1A2233"
-    TEXT_SECONDARY = "#6B7280"
-    TEXT_MUTED = "#8B93A3"
+    TEXT_PRIMARY = "#1F1B16"
+    TEXT_SECONDARY = "#5A5347"
+    TEXT_MUTED = "#7A7264"
     TEXT_WHITE = "#FFFFFF"
 
     # Acento principal (azul corporativo)
@@ -34,8 +34,8 @@ class Color:
     ACCENT_STRONG = "#2563EB"
 
     # Sidebar
-    SIDEBAR_BG = "#F4F6F9"
-    SIDEBAR_ITEM_HOVER = "#E4E8EF"
+    SIDEBAR_BG = "#E3DCD0"
+    SIDEBAR_ITEM_HOVER = "#D6CDBE"
     SIDEBAR_ITEM_ACTIVE = "#2563EB"
     SIDEBAR_ITEM_ACTIVE_TEXT = "#FFFFFF"
 
@@ -87,6 +87,17 @@ class Spacing:
 
 
 # ---------------------------------------------------------------------------
+# TAMAÑOS ESTÁNDAR (fuente única de verdad para TODAS las pantallas)
+# ---------------------------------------------------------------------------
+class Sizes:
+    BUTTON_HEIGHT = 40   # alto único de todos los botones de acción
+    BUTTON_WIDTH = 160   # ancho por defecto de los botones de acción
+    INPUT_HEIGHT = 38    # alto único de todos los campos de texto
+    COMPACT_HEIGHT = 25  # alto de botones compactos (filas de tabla / filtros)
+    COMPACT_WIDTH = 80   # ancho de botones compactos
+
+
+# ---------------------------------------------------------------------------
 # CONFIGURACIÓN GLOBAL DE CUSTOMTKINTER
 # ---------------------------------------------------------------------------
 def aplicar_tema_global():
@@ -99,52 +110,57 @@ def aplicar_tema_global():
 # ---------------------------------------------------------------------------
 def boton_primario(master, text, command=None, **kw):
     defaults = dict(
-        font=Font.BUTTON, height=40, corner_radius=Radius.MD,
+        font=Font.BUTTON, height=Sizes.BUTTON_HEIGHT, width=Sizes.BUTTON_WIDTH,
+        corner_radius=Radius.MD,
         fg_color=Color.ACCENT_STRONG, hover_color=Color.ACCENT_HOVER,
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=1, border_color="#CBD2DC")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
 
 
 def boton_secundario(master, text, command=None, **kw):
     defaults = dict(
-        font=Font.BUTTON, height=36, corner_radius=Radius.MD,
+        font=Font.BUTTON, height=Sizes.BUTTON_HEIGHT, width=Sizes.BUTTON_WIDTH,
+        corner_radius=Radius.MD,
         fg_color=Color.NEUTRAL, hover_color=Color.NEUTRAL_HOVER,
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=1, border_color="#CBD2DC")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
 
 
 def boton_exito(master, text, command=None, **kw):
     defaults = dict(
-        font=Font.BUTTON, height=40, corner_radius=Radius.MD,
+        font=Font.BUTTON, height=Sizes.BUTTON_HEIGHT, width=Sizes.BUTTON_WIDTH,
+        corner_radius=Radius.MD,
         fg_color=Color.SUCCESS, hover_color=Color.SUCCESS_HOVER,
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=1, border_color="#CBD2DC")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
 
 
 def boton_peligro(master, text, command=None, **kw):
     defaults = dict(
-        font=Font.BUTTON, height=40, corner_radius=Radius.MD,
+        font=Font.BUTTON, height=Sizes.BUTTON_HEIGHT, width=Sizes.BUTTON_WIDTH,
+        corner_radius=Radius.MD,
         fg_color=Color.DANGER, hover_color=Color.DANGER_HOVER,
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=1, border_color="#CBD2DC")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
 
 
 def boton_volver(master, command=None, **kw):
     defaults = dict(
-        text="← Volver", font=Font.BODY_BOLD, height=35, width=110,
+        text="← Volver", font=Font.BODY_BOLD, height=Sizes.BUTTON_HEIGHT,
+        width=Sizes.BUTTON_WIDTH,
         corner_radius=Radius.MD, fg_color=Color.NEUTRAL,
         hover_color=Color.NEUTRAL_HOVER, text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, command=command, **defaults, border_width=1, border_color="#CBD2DC")
+    return ctk.CTkButton(master, command=command, **defaults, border_width=2, border_color="#9C927F")
 
 
 def card(master, **kw):
@@ -173,7 +189,7 @@ def etiqueta(master, text, **kw):
 
 def entry(master, **kw):
     defaults = dict(
-        font=Font.BODY, height=38, corner_radius=Radius.SM,
+        font=Font.BODY, height=Sizes.INPUT_HEIGHT, corner_radius=Radius.SM,
         fg_color=Color.BG_INPUT, border_color=Color.BORDER,
         text_color=Color.TEXT_PRIMARY,
     )

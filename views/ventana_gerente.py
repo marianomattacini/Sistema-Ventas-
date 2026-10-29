@@ -25,7 +25,7 @@ class FrameGerente(BaseFrame):
             self.controller.volver()
             return
 
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
 
         self.filtro_periodo = "Hoy"
 
@@ -33,7 +33,7 @@ class FrameGerente(BaseFrame):
         self._cargar_datos()
 
     def _crear_widgets(self):
-        frame_principal = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame_principal = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame_principal.pack(fill="both", expand=True, padx=20, pady=20)
         
         barra = ctk.CTkFrame(frame_principal, fg_color="transparent")
@@ -44,15 +44,11 @@ class FrameGerente(BaseFrame):
         ).pack(side="left")
         
         ctk.CTkLabel(barra, text=f"👤 {self.usuario_actual.nombre_usuario}", 
-                    font=("Roboto", 14), text_color="#6B7280"
+                    font=("Roboto", 14), text_color="#5A5347"
         ).pack(side="right", padx=10)
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
-                                  corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_volver.pack(side="right", padx=10)
         
-        self.tabview = ctk.CTkTabview(frame_principal, fg_color="#F4F6F9", corner_radius=10)
+        self.tabview = ctk.CTkTabview(frame_principal, fg_color="#E3DCD0", corner_radius=10)
         self.tabview.pack(fill="both", expand=True, padx=20, pady=20)
         
         # Ajuste de tamaño de fuente para evitar corte de palabras
@@ -84,7 +80,7 @@ class FrameGerente(BaseFrame):
         tab.grid_columnconfigure(2, weight=1)
         tab.grid_columnconfigure(3, weight=1)
         
-        frame_filtros = ctk.CTkFrame(tab, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_filtros = ctk.CTkFrame(tab, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_filtros.grid(row=0, column=0, columnspan=4, sticky="ew", padx=20, pady=(20, 10))
         
         ctk.CTkLabel(frame_filtros, text="Período:", font=("Roboto", 14, "bold")
@@ -92,8 +88,8 @@ class FrameGerente(BaseFrame):
         
         for periodo in ["Hoy", "Semana", "Mes", "Año"]:
             btn = ctk.CTkButton(frame_filtros, text=periodo, height=30, width=80,
-                               fg_color="#D6DBE3", hover_color="#64748B",
-                               corner_radius=10, command=lambda p=periodo: self._cambiar_periodo(p), border_width=1, border_color="#CBD2DC", text_color="#1A2233")
+                               fg_color="#D6CDBE", hover_color="#64748B",
+                               corner_radius=10, command=lambda p=periodo: self._cambiar_periodo(p), border_width=2, border_color="#9C927F", text_color="#1F1B16")
             btn.pack(side="left", padx=5, pady=10)
         
         self.card_ingresos = ctk.CTkFrame(tab, fg_color="#DCFCE7", corner_radius=15)
@@ -128,15 +124,15 @@ class FrameGerente(BaseFrame):
                                         font=("Roboto", 28, "bold"), text_color="#2563EB")
         self.lbl_utilidad.pack(pady=10)
         
-        frame_detalle = ctk.CTkFrame(tab, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_detalle = ctk.CTkFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_detalle.grid(row=2, column=0, columnspan=4, sticky="nsew", padx=20, pady=20)
         
         ctk.CTkLabel(frame_detalle, text="Detalle del Período", 
-                    font=("Roboto", 16, "bold"), text_color="#6B7280"
+                    font=("Roboto", 16, "bold"), text_color="#5A5347"
         ).pack(pady=(20, 10))
         
         self.lbl_detalle = ctk.CTkLabel(frame_detalle, text="Cargando...", 
-                                       font=("Roboto", 14), text_color="#8B93A3")
+                                       font=("Roboto", 14), text_color="#7A7264")
         self.lbl_detalle.pack(pady=10)
     
     def _cambiar_periodo(self, periodo):
@@ -225,7 +221,7 @@ class FrameGerente(BaseFrame):
     def _crear_tab_estadisticas(self):
         tab = self.tabview.tab("📈 Estadísticas")
         
-        frame_filtros = ctk.CTkFrame(tab, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_filtros = ctk.CTkFrame(tab, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_filtros.pack(fill="x", padx=20, pady=(20, 10))
         
         ctk.CTkLabel(frame_filtros, text="Filtrar por:", font=("Roboto", 14, "bold")
@@ -238,18 +234,18 @@ class FrameGerente(BaseFrame):
         self.combo_estadistica.pack(side="left", padx=10, pady=10)
         self.combo_estadistica.set("Todos")
         
-        btn_exportar = ctk.CTkButton(frame_filtros, text="📤 Exportar a PDF", height=35,
+        btn_exportar = ctk.CTkButton(frame_filtros, text="📤 Exportar a PDF", height=40,
                                    fg_color="#7C3AED", hover_color="#6D28D9",
-                                   corner_radius=10, command=self._exportar_estadisticas_pdf, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=self._exportar_estadisticas_pdf, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_exportar.pack(side="right", padx=10, pady=10)
         
-        self.frame_estadisticas = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_estadisticas = ctk.CTkScrollableFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_estadisticas.pack(fill="both", expand=True, padx=20, pady=(20, 10))
         
         self._cargar_estadisticas()
 
         # --- Predicción de ventas (regresión lineal) ---
-        frame_prediccion = ctk.CTkFrame(tab, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_prediccion = ctk.CTkFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_prediccion.pack(fill="x", padx=20, pady=(0, 20))
 
         header_pred = ctk.CTkFrame(frame_prediccion, fg_color="transparent")
@@ -257,16 +253,16 @@ class FrameGerente(BaseFrame):
         ctk.CTkLabel(header_pred, text="🔮 Predicción de Ventas — Próximo Trimestre",
                     font=("Roboto", 16, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
-        ctk.CTkButton(header_pred, text="Generar Predicción", height=32, width=160,
+        ctk.CTkButton(header_pred, text="Generar Predicción", height=40, width=160,
                      font=("Roboto", 12, "bold"), fg_color="#2563EB", hover_color="#2563EB",
                      corner_radius=10, command=self._generar_prediccion_ventas
-        , border_width=1, border_color="#CBD2DC", text_color="#FFFFFF").pack(side="right")
+        , border_width=2, border_color="#9C927F", text_color="#FFFFFF").pack(side="right")
 
         ctk.CTkLabel(
             frame_prediccion,
             text=("Regresión lineal (Ridge) sobre el historial de ventas: tendencia, estacionalidad "
                   "semanal/anual y promociones activas como variable externa."),
-            font=("Roboto", 11), text_color="#8B93A3", wraplength=900, justify="left"
+            font=("Roboto", 11), text_color="#7A7264", wraplength=900, justify="left"
         ).pack(anchor="w", padx=20, pady=(0, 10))
 
         self.frame_resultado_prediccion = ctk.CTkFrame(frame_prediccion, fg_color="transparent")
@@ -280,7 +276,7 @@ class FrameGerente(BaseFrame):
             widget.destroy()
 
         ctk.CTkLabel(self.frame_resultado_prediccion, text="Calculando...",
-                    font=("Roboto", 12), text_color="#8B93A3").pack(pady=10)
+                    font=("Roboto", 12), text_color="#7A7264").pack(pady=10)
         self.update_idletasks()
 
         try:
@@ -304,7 +300,7 @@ class FrameGerente(BaseFrame):
             return
 
         # --- Gráfico de barras: 3 meses proyectados ---
-        frame_barras = ctk.CTkFrame(self.frame_resultado_prediccion, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_barras = ctk.CTkFrame(self.frame_resultado_prediccion, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_barras.pack(fill="x", pady=(0, 10))
         cont_barras = ctk.CTkFrame(frame_barras, fg_color="transparent")
         cont_barras.pack(fill="x", padx=20, pady=20)
@@ -320,13 +316,13 @@ class FrameGerente(BaseFrame):
             relleno.pack(fill="x")
             ctk.CTkFrame(col, fg_color="#1D4ED8", corner_radius=6, height=alto).pack(fill="x")
             ctk.CTkLabel(col, text=f"${m['total']:,.0f}", font=("Roboto", 12, "bold"),
-                        text_color="#1A2233").pack(pady=(6, 0))
+                        text_color="#1F1B16").pack(pady=(6, 0))
             ctk.CTkLabel(col, text=m["etiqueta"], font=("Roboto", 11),
-                        text_color="#6B7280").pack()
+                        text_color="#5A5347").pack()
 
         # --- Totales y calidad del modelo ---
         iconos_tendencia = {"creciendo": "📈", "cayendo": "📉", "estable": "➡️"}
-        frame_info = ctk.CTkFrame(self.frame_resultado_prediccion, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_info = ctk.CTkFrame(self.frame_resultado_prediccion, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_info.pack(fill="x", pady=(0, 10))
         ctk.CTkLabel(
             frame_info,
@@ -340,7 +336,7 @@ class FrameGerente(BaseFrame):
         if resultado["r2_validacion"] is not None:
             calidad += (f"   |   R² de validación (últimos 14 días no usados para entrenar): "
                         f"{resultado['r2_validacion']}   |   Error promedio: ${resultado['mae_validacion']:,.2f}/día")
-        ctk.CTkLabel(frame_info, text=calidad, font=("Roboto", 11), text_color="#6B7280",
+        ctk.CTkLabel(frame_info, text=calidad, font=("Roboto", 11), text_color="#5A5347",
                     wraplength=900, justify="left").pack(anchor="w", padx=15, pady=(0, 15))
 
         # --- Disclaimer correlación ≠ causalidad ---
@@ -351,7 +347,7 @@ class FrameGerente(BaseFrame):
                   "son correlaciones, no relaciones de causa-efecto comprobadas, y el modelo no puede "
                   "anticipar cambios de mercado que todavía no se reflejaron en las ventas pasadas "
                   "(nueva competencia, crisis económica, cambios de precios, etc.)."),
-            font=("Roboto", 10), text_color="#8B93A3", wraplength=900, justify="left"
+            font=("Roboto", 10), text_color="#7A7264", wraplength=900, justify="left"
         ).pack(anchor="w", pady=(0, 10))
     
     def _cargar_estadisticas(self):
@@ -383,7 +379,7 @@ class FrameGerente(BaseFrame):
                                 font=("Roboto", 16, "bold"), text_color="#1D4ED8"
                     ).pack(anchor="w", pady=(10, 5))
                     for nombre, total, ganancia in productos:
-                        frame = ctk.CTkFrame(self.frame_estadisticas, fg_color="#F9FAFB", corner_radius=8, border_width=1, border_color="#B8C1CE")
+                        frame = ctk.CTkFrame(self.frame_estadisticas, fg_color="#FBF8F3", corner_radius=8, border_width=2, border_color="#9C927F")
                         frame.pack(fill="x", pady=3)
                         ctk.CTkLabel(frame, text=nombre, font=("Roboto", 14)).pack(side="left", padx=10)
                         frame_der = ctk.CTkFrame(frame, fg_color="transparent")
@@ -408,7 +404,7 @@ class FrameGerente(BaseFrame):
                     total_general = sum(p[1] for p in pagos)
                     for metodo, total in pagos:
                         porcentaje = (total / total_general * 100) if total_general > 0 else 0
-                        frame = ctk.CTkFrame(self.frame_estadisticas, fg_color="#F9FAFB", corner_radius=8, border_width=1, border_color="#B8C1CE")
+                        frame = ctk.CTkFrame(self.frame_estadisticas, fg_color="#FBF8F3", corner_radius=8, border_width=2, border_color="#9C927F")
                         frame.pack(fill="x", pady=3)
                         ctk.CTkLabel(frame, text=metodo, font=("Roboto", 14)).pack(side="left", padx=10)
                         ctk.CTkLabel(frame, text=f"${total:,.2f} ({porcentaje:.1f}%)", 
@@ -417,7 +413,7 @@ class FrameGerente(BaseFrame):
             
             if not self.frame_estadisticas.winfo_children():
                 ctk.CTkLabel(self.frame_estadisticas, text="No hay datos para mostrar.", 
-                            font=("Roboto", 14), text_color="#8B93A3"
+                            font=("Roboto", 14), text_color="#7A7264"
                 ).pack(pady=20)
             
             conn.close()
@@ -504,15 +500,15 @@ class FrameGerente(BaseFrame):
         
         btn_nuevo = ctk.CTkButton(frame_acciones, text="➕ Nuevo Empleado", height=40,
                                  fg_color="#15803D", hover_color="#166534",
-                                 corner_radius=10, command=self._abrir_empleado, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                 corner_radius=10, command=self._abrir_empleado, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_nuevo.pack(side="left", padx=5)
         
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
-                                     corner_radius=10, command=self._cargar_empleados, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                     fg_color="#64748B", hover_color="#475569",
+                                     corner_radius=10, command=self._cargar_empleados, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
         
-        self.frame_empleados = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_empleados = ctk.CTkScrollableFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_empleados.pack(fill="both", expand=True, padx=20, pady=20)
         self._cargar_empleados()
     
@@ -524,20 +520,20 @@ class FrameGerente(BaseFrame):
             empleados = Empleado.obtener_todos()
             if not empleados:
                 ctk.CTkLabel(self.frame_empleados, text="No hay empleados registrados.", 
-                            font=("Roboto", 14), text_color="#8B93A3").pack(pady=20)
+                            font=("Roboto", 14), text_color="#7A7264").pack(pady=20)
                 return
             for emp in empleados:
-                frame = ctk.CTkFrame(self.frame_empleados, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+                frame = ctk.CTkFrame(self.frame_empleados, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
                 frame.pack(fill="x", pady=5)
                 texto = f"{emp.nombre_completo} - {emp.rol} (DNI: {emp.dni})"
-                ctk.CTkLabel(frame, text=texto, font=("Roboto", 14), text_color="#1A2233").pack(side="left", padx=10)
+                ctk.CTkLabel(frame, text=texto, font=("Roboto", 14), text_color="#1F1B16").pack(side="left", padx=10)
                 if emp.estado == "Activo":
                     ctk.CTkLabel(frame, text="🟢 Activo", font=("Roboto", 12), text_color="#15803D").pack(side="left", padx=10)
                 else:
                     ctk.CTkLabel(frame, text="🔴 Inactivo", font=("Roboto", 12), text_color="#DC2626").pack(side="left", padx=10)
                 btn_ver = ctk.CTkButton(frame, text="Ver Detalles", height=25,
                                       fg_color="#2563EB", hover_color="#1D4ED8",
-                                      corner_radius=5, command=lambda e=emp: self._ver_empleado(e), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                      corner_radius=5, command=lambda e=emp: self._ver_empleado(e), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
                 btn_ver.pack(side="right", padx=5)
         except Exception as e:
             messagebox.showerror("Error", f"Error al cargar empleados: {e}")
@@ -557,13 +553,13 @@ class FrameGerente(BaseFrame):
         frame_acciones.pack(fill="x", padx=20, pady=10)
         btn_nuevo = ctk.CTkButton(frame_acciones, text="➕ Nuevo Gasto Planificado", height=40,
                                  fg_color="#15803D", hover_color="#166534",
-                                 corner_radius=10, command=self._abrir_presupuesto, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                 corner_radius=10, command=self._abrir_presupuesto, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_nuevo.pack(side="left", padx=5)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
-                                     corner_radius=10, command=self._cargar_presupuestos, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                     fg_color="#64748B", hover_color="#475569",
+                                     corner_radius=10, command=self._cargar_presupuestos, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
-        self.frame_presupuestos = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_presupuestos = ctk.CTkScrollableFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_presupuestos.pack(fill="both", expand=True, padx=20, pady=20)
         self._cargar_presupuestos()
     
@@ -575,20 +571,20 @@ class FrameGerente(BaseFrame):
             presupuestos = Presupuesto.obtener_todos()
             if not presupuestos:
                 ctk.CTkLabel(self.frame_presupuestos, text="No hay gastos planificados.", 
-                            font=("Roboto", 14), text_color="#8B93A3").pack(pady=20)
+                            font=("Roboto", 14), text_color="#7A7264").pack(pady=20)
                 return
             for p in presupuestos:
-                frame = ctk.CTkFrame(self.frame_presupuestos, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+                frame = ctk.CTkFrame(self.frame_presupuestos, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
                 frame.pack(fill="x", pady=5)
                 texto = f"{p.categoria} - ${p.monto_planificado:.2f} ({p.mes}/{p.anio})"
-                ctk.CTkLabel(frame, text=texto, font=("Roboto", 14), text_color="#1A2233").pack(side="left", padx=10)
+                ctk.CTkLabel(frame, text=texto, font=("Roboto", 14), text_color="#1F1B16").pack(side="left", padx=10)
                 btn_editar = ctk.CTkButton(frame, text="✏️", width=30, height=25,
                                          fg_color="#2563EB", hover_color="#1D4ED8",
-                                         corner_radius=5, command=lambda id=p.id: self._editar_presupuesto(id), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                         corner_radius=5, command=lambda id=p.id: self._editar_presupuesto(id), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
                 btn_editar.pack(side="right", padx=5)
                 btn_eliminar = ctk.CTkButton(frame, text="🗑️", width=30, height=25,
                                            fg_color="#DC2626", hover_color="#B91C1C",
-                                           corner_radius=5, command=lambda id=p.id: self._eliminar_presupuesto(id), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                           corner_radius=5, command=lambda id=p.id: self._eliminar_presupuesto(id), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
                 btn_eliminar.pack(side="right", padx=5)
         except Exception as e:
             messagebox.showerror("Error", f"Error al cargar presupuestos: {e}")
@@ -614,13 +610,13 @@ class FrameGerente(BaseFrame):
         frame_acciones.pack(fill="x", padx=20, pady=10)
         btn_nueva = ctk.CTkButton(frame_acciones, text="➕ Nueva Entidad de Pago", height=40,
                                  fg_color="#15803D", hover_color="#166534",
-                                 corner_radius=10, command=self._abrir_entidad_pago, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                 corner_radius=10, command=self._abrir_entidad_pago, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_nueva.pack(side="left", padx=5)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
-                                     corner_radius=10, command=self._cargar_entidades_pago, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                     fg_color="#64748B", hover_color="#475569",
+                                     corner_radius=10, command=self._cargar_entidades_pago, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
-        self.frame_entidades = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_entidades = ctk.CTkScrollableFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_entidades.pack(fill="both", expand=True, padx=20, pady=20)
         self._cargar_entidades_pago()
     
@@ -632,24 +628,24 @@ class FrameGerente(BaseFrame):
             entidades = EntidadPago.obtener_todos()
             if not entidades:
                 ctk.CTkLabel(self.frame_entidades, text="No hay entidades de pago configuradas.", 
-                            font=("Roboto", 14), text_color="#8B93A3").pack(pady=20)
+                            font=("Roboto", 14), text_color="#7A7264").pack(pady=20)
                 return
             for ent in entidades:
-                frame = ctk.CTkFrame(self.frame_entidades, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+                frame = ctk.CTkFrame(self.frame_entidades, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
                 frame.pack(fill="x", pady=5)
                 texto = f"{ent.nombre} ({ent.tipo}) - Cuotas máximas: {ent.cuotas_maximas}"
                 if ent.activa:
                     texto += " ✅ Activa"
                 else:
                     texto += " ❌ Inactiva"
-                ctk.CTkLabel(frame, text=texto, font=("Roboto", 14), text_color="#1A2233").pack(side="left", padx=10)
+                ctk.CTkLabel(frame, text=texto, font=("Roboto", 14), text_color="#1F1B16").pack(side="left", padx=10)
                 btn_editar = ctk.CTkButton(frame, text="✏️", width=30, height=25,
                                          fg_color="#2563EB", hover_color="#1D4ED8",
-                                         corner_radius=5, command=lambda id=ent.id: self._editar_entidad_pago(id), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                         corner_radius=5, command=lambda id=ent.id: self._editar_entidad_pago(id), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
                 btn_editar.pack(side="right", padx=5)
                 btn_toggle = ctk.CTkButton(frame, text="🔄 Activar/Desactivar", height=25,
                                          fg_color="#C2410C", hover_color="#9A3412",
-                                         corner_radius=5, command=lambda id=ent.id: self._toggle_entidad_pago(id), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                         corner_radius=5, command=lambda id=ent.id: self._toggle_entidad_pago(id), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
                 btn_toggle.pack(side="right", padx=5)
         except Exception as e:
             messagebox.showerror("Error", f"Error al cargar entidades: {e}")
@@ -677,13 +673,13 @@ class FrameGerente(BaseFrame):
         frame_acciones.pack(fill="x", padx=20, pady=10)
         btn_nueva = ctk.CTkButton(frame_acciones, text="➕ Nueva Promoción", height=40,
                                  fg_color="#15803D", hover_color="#166534",
-                                 corner_radius=10, command=self._crear_promocion, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                 corner_radius=10, command=self._crear_promocion, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_nueva.pack(side="left", padx=5)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
-                                     corner_radius=10, command=self._cargar_promociones, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                     fg_color="#64748B", hover_color="#475569",
+                                     corner_radius=10, command=self._cargar_promociones, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
-        self.frame_promociones = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_promociones = ctk.CTkScrollableFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_promociones.pack(fill="both", expand=True, padx=20, pady=20)
         self._cargar_promociones()
     
@@ -693,10 +689,10 @@ class FrameGerente(BaseFrame):
         promociones = Promocion.obtener_promociones_activas()
         if not promociones:
             ctk.CTkLabel(self.frame_promociones, text="No hay promociones activas.", 
-                        font=("Roboto", 14), text_color="#8B93A3").pack(pady=20)
+                        font=("Roboto", 14), text_color="#7A7264").pack(pady=20)
             return
         for promocion in promociones:
-            frame_item = ctk.CTkFrame(self.frame_promociones, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+            frame_item = ctk.CTkFrame(self.frame_promociones, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
             frame_item.pack(fill="x", pady=5)
             texto = f"{promocion.tipo}"
             if promocion.producto_id:
@@ -709,12 +705,12 @@ class FrameGerente(BaseFrame):
                 texto += f" (mínimo {promocion.cantidad_minima} unidades)"
             if promocion.descuento_aplicado > 0:
                 texto += f" - Descuento: {promocion.descuento_aplicado}%"
-            ctk.CTkLabel(frame_item, text=texto, font=("Roboto", 14), text_color="#1A2233").pack(side="left", padx=10)
+            ctk.CTkLabel(frame_item, text=texto, font=("Roboto", 14), text_color="#1F1B16").pack(side="left", padx=10)
             fechas = f"Vigencia: {promocion.fecha_inicio} hasta {promocion.fecha_fin}"
-            ctk.CTkLabel(frame_item, text=fechas, font=("Roboto", 12), text_color="#6B7280").pack(side="left", padx=10)
+            ctk.CTkLabel(frame_item, text=fechas, font=("Roboto", 12), text_color="#5A5347").pack(side="left", padx=10)
             btn_desactivar = ctk.CTkButton(frame_item, text="Desactivar", height=25,
                                          fg_color="#DC2626", hover_color="#B91C1C",
-                                         corner_radius=5, command=lambda p=promocion: self._desactivar_promocion(p), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                         corner_radius=5, command=lambda p=promocion: self._desactivar_promocion(p), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
             btn_desactivar.pack(side="right", padx=5)
     
     def _crear_promocion(self):
@@ -722,7 +718,7 @@ class FrameGerente(BaseFrame):
         dialog = ctk.CTkToplevel(self)
         dialog.title("Nueva Promoción")
         dialog.geometry("600x700")
-        dialog.configure(fg_color="#F9FAFB")
+        dialog.configure(fg_color="#FBF8F3")
         dialog.resizable(False, False)
         dialog.transient(self.winfo_toplevel())
         dialog.lift()
@@ -752,9 +748,9 @@ class FrameGerente(BaseFrame):
         entradas = {}
         for etiqueta, clave in campos:
             ctk.CTkLabel(frame_scroll, text=etiqueta, font=("Roboto", 12, "bold"),
-                        text_color="#6B7280").pack(anchor="w", pady=(10, 5))
-            entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=35,
-                                  fg_color="#D6DBE3", text_color="#1A2233")
+                        text_color="#5A5347").pack(anchor="w", pady=(10, 5))
+            entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=38,
+                                  fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
             entrada.pack(fill="x", padx=0, pady=(0, 5))
             if clave == 'tipo':
                 entrada.insert(0, "3x2")
@@ -801,12 +797,12 @@ class FrameGerente(BaseFrame):
 
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
                                    fg_color="#15803D", hover_color="#166534",
-                                   corner_radius=10, command=guardar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                    fg_color="#64748B", hover_color="#D6DBE3",
-                                    corner_radius=10, command=dialog.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                    fg_color="#64748B", hover_color="#475569",
+                                    corner_radius=10, command=dialog.destroy, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
     
     def _desactivar_promocion(self, promocion):
@@ -825,10 +821,10 @@ class FrameGerente(BaseFrame):
         frame_acciones = ctk.CTkFrame(tab, fg_color="transparent")
         frame_acciones.pack(fill="x", padx=20, pady=10)
         btn_refrescar = ctk.CTkButton(frame_acciones, text="🔄 Refrescar", height=40,
-                                     fg_color="#64748B", hover_color="#D6DBE3",
-                                     corner_radius=10, command=self._cargar_notificaciones, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                     fg_color="#64748B", hover_color="#475569",
+                                     corner_radius=10, command=self._cargar_notificaciones, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_refrescar.pack(side="left", padx=5)
-        self.frame_notificaciones = ctk.CTkScrollableFrame(tab, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_notificaciones = ctk.CTkScrollableFrame(tab, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_notificaciones.pack(fill="both", expand=True, padx=20, pady=20)
         self._cargar_notificaciones()
     
@@ -839,22 +835,22 @@ class FrameGerente(BaseFrame):
         no_leidas = Notificacion.contar_no_leidas(self.usuario_actual.id)
         if not notificaciones:
             ctk.CTkLabel(self.frame_notificaciones, text="No hay notificaciones.", 
-                        font=("Roboto", 14), text_color="#8B93A3").pack(pady=20)
+                        font=("Roboto", 14), text_color="#7A7264").pack(pady=20)
             return
         ctk.CTkLabel(self.frame_notificaciones, text=f"📩 Notificaciones no leídas: {no_leidas}", 
                     font=("Roboto", 16, "bold"), text_color="#DC2626").pack(anchor="w", pady=(10, 20))
         for notificacion in notificaciones:
-            frame_item = ctk.CTkFrame(self.frame_notificaciones, fg_color="#F9FAFB", corner_radius=10, border_width=1, border_color="#B8C1CE")
+            frame_item = ctk.CTkFrame(self.frame_notificaciones, fg_color="#FBF8F3", corner_radius=10, border_width=2, border_color="#9C927F")
             frame_item.pack(fill="x", pady=5)
             icono = "🔒" if notificacion.tipo == "Seguridad" else "⚙️"
             estado = "📩" if notificacion.leida == 0 else "✅"
-            ctk.CTkLabel(frame_item, text=f"{icono} [{notificacion.tipo}]", font=("Roboto", 12, "bold"), text_color="#6B7280").pack(side="left", padx=10)
-            ctk.CTkLabel(frame_item, text=notificacion.mensaje, font=("Roboto", 14), text_color="#1A2233").pack(side="left", padx=10)
-            ctk.CTkLabel(frame_item, text=f"{estado} {notificacion.fecha_hora}", font=("Roboto", 12), text_color="#8B93A3").pack(side="right", padx=10)
+            ctk.CTkLabel(frame_item, text=f"{icono} [{notificacion.tipo}]", font=("Roboto", 12, "bold"), text_color="#5A5347").pack(side="left", padx=10)
+            ctk.CTkLabel(frame_item, text=notificacion.mensaje, font=("Roboto", 14), text_color="#1F1B16").pack(side="left", padx=10)
+            ctk.CTkLabel(frame_item, text=f"{estado} {notificacion.fecha_hora}", font=("Roboto", 12), text_color="#7A7264").pack(side="right", padx=10)
             if notificacion.leida == 0:
                 btn_marcar = ctk.CTkButton(frame_item, text="Marcar como leída", height=25,
                                          fg_color="#15803D", hover_color="#166534",
-                                         corner_radius=5, command=lambda n=notificacion: self._marcar_notificacion(n), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                         corner_radius=5, command=lambda n=notificacion: self._marcar_notificacion(n), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
                 btn_marcar.pack(side="right", padx=5)
     
     def _marcar_notificacion(self, notificacion):

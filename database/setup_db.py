@@ -435,6 +435,8 @@ def insertar_datos_prueba():
 
     except sqlite3.Error as e:
         print(f"❌ Error al insertar datos de prueba: {e}")
+        return False
+    return True
 
 # =====================================================================
 # EJECUCIÓN DIRECTA
@@ -443,7 +445,12 @@ if __name__ == "__main__":
     print("=" * 50)
     print("📦 CONFIGURANDO BASE DE DATOS SQLITE")
     print("=" * 50)
-    crear_tablas()
-    insertar_datos_prueba()
+    ok = crear_tablas()
+    if ok:
+        ok = insertar_datos_prueba()
     print("=" * 50)
-    print("✅ Proceso completado.")
+    if ok:
+        print(f"✅ SQLite listo: {DB_LOCAL}")
+        sys.exit(0)
+    print("❌ No se pudo configurar SQLite.")
+    sys.exit(1)

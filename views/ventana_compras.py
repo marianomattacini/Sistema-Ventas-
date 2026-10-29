@@ -29,7 +29,7 @@ class FrameCompras(BaseFrame):
             return
         
         # Configuración de la pantalla
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
         
         # Estado de la compra actual
         self.detalles = []
@@ -42,7 +42,7 @@ class FrameCompras(BaseFrame):
     
     def _crear_widgets(self):
         # Frame principal
-        frame_principal = ctk.CTkFrame(self, fg_color="#F9FAFB", corner_radius=15, border_width=1, border_color="#B8C1CE")
+        frame_principal = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame_principal.pack(fill="both", expand=True, padx=20, pady=20)
         
         # Barra superior
@@ -53,13 +53,9 @@ class FrameCompras(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        btn_volver = ctk.CTkButton(barra, text="← Volver", font=("Roboto", 14), height=35,
-                                  fg_color="#64748B", hover_color="#D6DBE3",
-                                  corner_radius=10, command=self.destroy, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
-        btn_volver.pack(side="right", padx=10)
         
         # Panel de datos de la compra
-        panel_compra = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_compra = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_compra.pack(fill="x", padx=20, pady=10)
         
         ctk.CTkLabel(panel_compra, text="📋 DATOS DE LA COMPRA", 
@@ -74,19 +70,19 @@ class FrameCompras(BaseFrame):
         ).pack(side="left", padx=(0, 10))
         
         self.entry_factura = ctk.CTkEntry(frame_fila1, placeholder_text="Ingrese número de factura",
-                                         width=200, height=35, font=("Roboto", 13))
+                                         width=200, height=38, font=("Roboto", 13), border_color="#9C927F")
         self.entry_factura.pack(side="left", padx=(0, 20))
         
         ctk.CTkLabel(frame_fila1, text="Proveedor:", font=("Roboto", 14, "bold")
         ).pack(side="left", padx=(0, 10))
         
         self.entry_proveedor = ctk.CTkEntry(frame_fila1, placeholder_text="CUIT o razón social",
-                                           width=200, height=35, font=("Roboto", 13))
+                                           width=200, height=38, font=("Roboto", 13), border_color="#9C927F")
         self.entry_proveedor.pack(side="left", padx=(0, 10))
         
-        btn_buscar_prov = ctk.CTkButton(frame_fila1, text="Buscar", height=35,
+        btn_buscar_prov = ctk.CTkButton(frame_fila1, text="Buscar", height=40,
                                       fg_color="#2563EB", hover_color="#2563EB",
-                                      corner_radius=10, command=self._buscar_proveedor, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                      corner_radius=10, command=self._buscar_proveedor, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_buscar_prov.pack(side="left", padx=5)
         
         self.label_proveedor = ctk.CTkLabel(frame_fila1, text="", font=("Roboto", 12), text_color="#15803D")
@@ -100,11 +96,11 @@ class FrameCompras(BaseFrame):
         ).pack(side="left", padx=(0, 10))
         
         ctk.CTkLabel(frame_fila2, text=f"{self.usuario_actual.nombre_usuario} (ID: {self.usuario_actual.id})", 
-                    font=("Roboto", 13), text_color="#6B7280"
+                    font=("Roboto", 13), text_color="#5A5347"
         ).pack(side="left")
         
         # Panel de productos
-        panel_productos = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_productos = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_productos.pack(fill="x", padx=20, pady=10)
         
         ctk.CTkLabel(panel_productos, text="🛒 AGREGAR PRODUCTOS", 
@@ -118,7 +114,7 @@ class FrameCompras(BaseFrame):
         ).pack(side="left", padx=(0, 5))
         
         self.entry_codigo = ctk.CTkEntry(frame_prod, placeholder_text="Código de barras",
-                                        width=150, height=35, font=("Roboto", 13))
+                                        width=150, height=38, font=("Roboto", 13), border_color="#9C927F")
         self.entry_codigo.pack(side="left", padx=(0, 10))
         self.entry_codigo.bind("<Return>", lambda e: self._buscar_producto())
         
@@ -126,7 +122,7 @@ class FrameCompras(BaseFrame):
         ).pack(side="left", padx=(0, 5))
         
         self.entry_cantidad = ctk.CTkEntry(frame_prod, placeholder_text="1",
-                                          width=80, height=35, font=("Roboto", 13))
+                                          width=80, height=38, font=("Roboto", 13), border_color="#9C927F")
         self.entry_cantidad.insert(0, "1")
         self.entry_cantidad.pack(side="left", padx=(0, 10))
         
@@ -134,35 +130,35 @@ class FrameCompras(BaseFrame):
         ).pack(side="left", padx=(0, 5))
         
         self.entry_precio = ctk.CTkEntry(frame_prod, placeholder_text="0.00",
-                                        width=120, height=35, font=("Roboto", 13))
+                                        width=120, height=38, font=("Roboto", 13), border_color="#9C927F")
         self.entry_precio.pack(side="left", padx=(0, 10))
         
-        btn_agregar = ctk.CTkButton(frame_prod, text="➕ Agregar", height=35,
+        btn_agregar = ctk.CTkButton(frame_prod, text="➕ Agregar", height=40,
                                    fg_color="#15803D", hover_color="#166534",
-                                   corner_radius=10, command=self._agregar_detalle, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=self._agregar_detalle, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_agregar.pack(side="left")
         
         self.label_producto = ctk.CTkLabel(frame_prod, text="", font=("Roboto", 12), text_color="#C2410C")
         self.label_producto.pack(side="left", padx=10)
         
         # Tabla de detalles
-        frame_detalles = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        frame_detalles = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         frame_detalles.pack(fill="both", expand=True, padx=20, pady=10)
         
         ctk.CTkLabel(frame_detalles, text="📋 DETALLE DE LA COMPRA", 
                     font=("Roboto", 16, "bold"), text_color="#1D4ED8"
         ).pack(anchor="w", padx=20, pady=(20, 10))
         
-        self.frame_detalles_tabla = ctk.CTkScrollableFrame(frame_detalles, fg_color="#F4F6F9", corner_radius=10)
+        self.frame_detalles_tabla = ctk.CTkScrollableFrame(frame_detalles, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         self.frame_detalles_tabla.pack(fill="both", expand=True, padx=20, pady=10)
         
         encabezados = ["Código", "Producto", "Cantidad", "Precio Costo", "Subtotal", "Acción"]
         for i, texto in enumerate(encabezados):
             ctk.CTkLabel(self.frame_detalles_tabla, text=texto, font=("Roboto", 13, "bold"),
-                        text_color="#6B7280").grid(row=0, column=i, padx=10, pady=5, sticky="w")
+                        text_color="#5A5347").grid(row=0, column=i, padx=10, pady=5, sticky="w")
         
         # Panel total y botones finales
-        panel_total = ctk.CTkFrame(frame_principal, fg_color="#F4F6F9", corner_radius=10, border_width=1, border_color="#B8C1CE")
+        panel_total = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_total.pack(fill="x", padx=20, pady=(10, 20))
         
         ctk.CTkLabel(panel_total, text="TOTAL FACTURA:", font=("Roboto", 18, "bold"), text_color="#1D4ED8"
@@ -172,15 +168,15 @@ class FrameCompras(BaseFrame):
                                        font=("Roboto", 24, "bold"), text_color="#15803D")
         self.label_total.pack(side="left", padx=20, pady=15)
         
-        btn_guardar = ctk.CTkButton(panel_total, text="💾 GUARDAR COMPRA", height=50,
+        btn_guardar = ctk.CTkButton(panel_total, text="💾 GUARDAR COMPRA", height=40,
                                    font=("Roboto", 16, "bold"),
                                    fg_color="#15803D", hover_color="#166534",
-                                   corner_radius=10, command=self._guardar_compra, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=self._guardar_compra, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="right", padx=20, pady=10)
         
         btn_limpiar = ctk.CTkButton(panel_total, text="🗑️ Limpiar", height=40,
                                    fg_color="#DC2626", hover_color="#B91C1C",
-                                   corner_radius=10, command=self._limpiar_formulario, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   corner_radius=10, command=self._limpiar_formulario, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_limpiar.pack(side="right", padx=10, pady=10)
     
     # =====================================================================
@@ -296,7 +292,7 @@ class FrameCompras(BaseFrame):
         
         if not self.detalles:
             ctk.CTkLabel(self.frame_detalles_tabla, text="No hay productos cargados.", 
-                        font=("Roboto", 14), text_color="#8B93A3"
+                        font=("Roboto", 14), text_color="#7A7264"
             ).grid(row=1, column=0, columnspan=6, padx=10, pady=20)
             self.label_total.configure(text="$ 0.00")
             return
@@ -317,7 +313,7 @@ class FrameCompras(BaseFrame):
             ).grid(row=i, column=4, padx=10, pady=5, sticky="e")
             btn_eliminar = ctk.CTkButton(self.frame_detalles_tabla, text="❌", width=30, height=25,
                                        fg_color="#DC2626", hover_color="#B91C1C",
-                                       corner_radius=5, command=lambda idx=i-1: self._eliminar_detalle(idx), border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                       corner_radius=5, command=lambda idx=i-1: self._eliminar_detalle(idx), border_width=2, border_color="#9C927F", text_color="#FFFFFF")
             btn_eliminar.grid(row=i, column=5, padx=10, pady=5)
         
         self.label_total.configure(text=f"$ {total:.2f}")

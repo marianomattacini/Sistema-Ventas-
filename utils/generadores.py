@@ -185,10 +185,13 @@ def generar_reporte_turno_pdf(datos_turno):
     pdf.cell(0, 5, f"Efectivo: ${datos_turno['total_efectivo']:.2f}", ln=True)
     pdf.cell(0, 5, f"Débito: ${datos_turno['total_debito']:.2f}", ln=True)
     pdf.cell(0, 5, f"Crédito: ${datos_turno['total_credito']:.2f}", ln=True)
-    pdf.cell(0, 5, f"Transferencia: ${datos_turno['total_transferencia']:.2f}", ln=True)
+    pdf.cell(0, 5, f"Transferencia / QR: ${datos_turno['total_transferencia']:.2f}", ln=True)
     pdf.cell(0, 5, "-" * 30, ln=True)
     pdf.set_font("Courier", 'B', 10)
     pdf.cell(0, 5, f"TOTAL VENTAS: ${datos_turno['total_ventas']:.2f}", ln=True)
+    if 'cantidad_ventas' in datos_turno:
+        pdf.set_font("Courier", size=10)
+        pdf.cell(0, 5, f"Cantidad de ventas: {datos_turno['cantidad_ventas']}", ln=True)
     pdf.ln(3)
 
     pdf.set_font("Courier", 'B', 12)
@@ -197,11 +200,40 @@ def generar_reporte_turno_pdf(datos_turno):
     pdf.cell(0, 5, f"Total sangrías: ${datos_turno['total_sangrias']:.2f}", ln=True)
     pdf.ln(3)
 
+    # El efectivo que tiene que haber en la caja es SOLO el efectivo: fondo inicial
+    # + ventas cobradas en efectivo (ya netas de vuelto) - sangrías. Débito, crédito
+    # y transferencia/QR no pasan por la caja, así que no se suman acá.
+    fondo = datos_turno['fondo_inicial']
+    efectivo = datos_turno['total_efectivo']
+    sangrias = datos_turno['total_sangrias']
+    efectivo_final = fondo + efectivo - sangrias
+
     pdf.set_font("Courier", 'B', 12)
     pdf.cell(0, 6, "RESUMEN DE CAJA", ln=True, align='C')
     pdf.set_font("Courier", size=10)
-    efectivo_final = datos_turno['fondo_inicial'] + datos_turno['total_ventas'] - datos_turno['total_sangrias']
-    pdf.cell(0, 5, f"Efectivo en caja: ${efectivo_final:.2f}", ln=True)
+    pdf.cell(0, 5, f"{'Fondo inicial':<36}$ {fondo:>10.2f}", ln=True)
+    pdf.cell(0, 5, f"{'+ Ventas en efectivo (neto de vuelto)':<36}$ {efectivo:>10.2f}", ln=True)
+    pdf.cell(0, 5, f"{'- Sangrías':<36}$ {sangrias:>10.2f}", ln=True)
+    pdf.cell(0, 5, "-" * 50, ln=True)
+    pdf.set_font("Courier", 'B', 10)
+    pdf.cell(0, 5, f"{'EFECTIVO ESPERADO EN CAJA':<36}$ {efectivo_final:>10.2f}", ln=True)
+    pdf.set_font("Courier", size=10)
+
+    if 'total_vuelto' in datos_turno:
+        pdf.ln(2)
+        pdf.cell(0, 5, f"{'Efectivo recibido de clientes':<36}$ {datos_turno['efectivo_recibido']:>10.2f}", ln=True)
+        pdf.cell(0, 5, f"{'- Vuelto entregado':<36}$ {datos_turno['total_vuelto']:>10.2f}", ln=True)
+        pdf.cell(0, 5, f"{'= Ventas en efectivo (neto)':<36}$ {efectivo:>10.2f}", ln=True)
+
+    if 'diferencia_control' in datos_turno:
+        pdf.ln(2)
+        if abs(datos_turno['diferencia_control']) <= 0.01:
+            pdf.cell(0, 5, "Control: tickets facturados = total cobrado (OK)", ln=True)
+        else:
+            pdf.set_font("Courier", 'B', 10)
+            pdf.cell(0, 5, f"ATENCION - diferencia de control: ${datos_turno['diferencia_control']:.2f}", ln=True)
+            pdf.set_font("Courier", size=10)
+            pdf.cell(0, 5, f"(facturado ${datos_turno['total_facturado']:.2f} vs cobrado ${datos_turno['total_ventas']:.2f})", ln=True)
     pdf.ln(5)
     pdf.cell(0, 5, f"Reporte generado: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True)
 

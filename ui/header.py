@@ -50,5 +50,12 @@ class Header(ctk.CTkFrame):
         if usuario:
             self.lbl_usuario.configure(text=f"👤 {usuario.nombre_usuario} ({usuario.rol})")
 
+        # "Volver" solo se muestra si hay una pantalla anterior a la que volver
+        # (en la primera pantalla tras el login queda oculto).
         puede_volver = len(self.app.historial) > 1
-        self.btn_volver.configure(state=("normal" if puede_volver else "disabled"))
+        if puede_volver:
+            if not self.btn_volver.winfo_ismapped():
+                self.btn_volver.pack(side="left", padx=Spacing.MD, pady=Spacing.SM,
+                                     before=self.lbl_titulo)
+        else:
+            self.btn_volver.pack_forget()

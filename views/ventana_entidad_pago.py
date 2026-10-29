@@ -29,13 +29,13 @@ class FrameEntidadPago(BaseFrame):
         self.entidad_id = entidad_id
         self.entidad = EntidadPago.obtener_por_id(entidad_id) if entidad_id else None
 
-        self.configure(fg_color="#F4F6F9")
+        self.configure(fg_color="#EFEAE2")
 
         self._crear_widgets()
 
     def _crear_widgets(self):
         # Frame con scroll
-        frame_scroll = ctk.CTkScrollableFrame(self, fg_color="#F9FAFB", corner_radius=15)
+        frame_scroll = ctk.CTkScrollableFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
         frame_scroll.pack(fill="both", expand=True, padx=20, pady=20)
 
         titulo = "Editar Entidad" if self.entidad else "Nueva Entidad"
@@ -47,8 +47,8 @@ class FrameEntidadPago(BaseFrame):
         ).pack(anchor="w", padx=40, pady=(10, 5))
         tipo_inicial = self.entidad.tipo if self.entidad and self.entidad.tipo in TIPOS else TIPOS[0]
         self.combo_tipo = ctk.CTkOptionMenu(frame_scroll, values=TIPOS, width=200, height=35,
-                                          font=("Roboto", 13), fg_color="#D6DBE3",
-                                          text_color="#1A2233", button_color="#2563EB",
+                                          font=("Roboto", 13), fg_color="#D6CDBE",
+                                          text_color="#1F1B16", button_color="#2563EB",
                                           corner_radius=10, command=self._on_cambio_tipo)
         self.combo_tipo.pack(anchor="w", padx=40, pady=(0, 10))
         self.combo_tipo.set(tipo_inicial)
@@ -58,8 +58,8 @@ class FrameEntidadPago(BaseFrame):
         ).pack(anchor="w", padx=40, pady=(10, 5))
         opciones_nombre = ENTIDADES_POR_TIPO[tipo_inicial]
         self.combo_nombre = ctk.CTkOptionMenu(frame_scroll, values=opciones_nombre, width=220, height=35,
-                                            font=("Roboto", 13), fg_color="#D6DBE3",
-                                            text_color="#1A2233", button_color="#2563EB",
+                                            font=("Roboto", 13), fg_color="#D6CDBE",
+                                            text_color="#1F1B16", button_color="#2563EB",
                                             corner_radius=10)
         self.combo_nombre.pack(anchor="w", padx=40, pady=(0, 10))
         if self.entidad and self.entidad.nombre in opciones_nombre:
@@ -69,7 +69,7 @@ class FrameEntidadPago(BaseFrame):
 
         # Checkbox: Acepta cuotas
         self.check_cuotas = ctk.CTkCheckBox(frame_scroll, text="Acepta cuotas", font=("Roboto", 13),
-                                          fg_color="#15803D", hover_color="#166534", text_color="#1A2233")
+                                          fg_color="#15803D", hover_color="#166534", text_color="#1F1B16")
         self.check_cuotas.pack(anchor="w", padx=40, pady=10)
         if self.entidad and self.entidad.cuotas_maximas > 0:
             self.check_cuotas.select()
@@ -79,8 +79,8 @@ class FrameEntidadPago(BaseFrame):
         self.frame_cuotas.pack(fill="x", padx=40, pady=(0, 10))
         ctk.CTkLabel(self.frame_cuotas, text="Cuotas Máximas:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
-        self.entry_cuotas = ctk.CTkEntry(self.frame_cuotas, font=("Roboto", 13), height=35, width=100,
-                                       fg_color="#D6DBE3", text_color="#1A2233")
+        self.entry_cuotas = ctk.CTkEntry(self.frame_cuotas, font=("Roboto", 13), height=38, width=100,
+                                       fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
         self.entry_cuotas.pack(anchor="w", pady=(0, 5))
         if self.entidad:
             self.entry_cuotas.insert(0, str(self.entidad.cuotas_maximas))
@@ -89,8 +89,8 @@ class FrameEntidadPago(BaseFrame):
 
         ctk.CTkLabel(self.frame_cuotas, text="Cuotas sin interés:", font=("Roboto", 13, "bold")
         ).pack(anchor="w", pady=(10, 5))
-        self.entry_cuotas_si = ctk.CTkEntry(self.frame_cuotas, font=("Roboto", 13), height=35, width=100,
-                                          fg_color="#D6DBE3", text_color="#1A2233")
+        self.entry_cuotas_si = ctk.CTkEntry(self.frame_cuotas, font=("Roboto", 13), height=38, width=100,
+                                          fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
         self.entry_cuotas_si.pack(anchor="w", pady=(0, 5))
         self.entry_cuotas_si.insert(0, str(getattr(self.entidad, 'cuotas_sin_interes', 0) if self.entidad else 3))
 
@@ -107,25 +107,25 @@ class FrameEntidadPago(BaseFrame):
         # --- Promoción: descuento % y descripción libre ---
         ctk.CTkLabel(frame_scroll, text="Descuento (%):", font=("Roboto", 13, "bold")
         ).pack(anchor="w", padx=40, pady=(10, 5))
-        self.entry_descuento = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=35, width=100,
-                                          fg_color="#D6DBE3", text_color="#1A2233",
-                                          placeholder_text="Ej: 10")
+        self.entry_descuento = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=38, width=100,
+                                          fg_color="#FFFDF9", text_color="#1F1B16",
+                                          placeholder_text="Ej: 10", border_color="#9C927F")
         self.entry_descuento.pack(anchor="w", padx=40, pady=(0, 10))
         if self.entidad and self.entidad.descuento_porcentaje:
             self.entry_descuento.insert(0, str(self.entidad.descuento_porcentaje))
 
         ctk.CTkLabel(frame_scroll, text="Descripción de la promoción (opcional):", font=("Roboto", 13, "bold")
         ).pack(anchor="w", padx=40, pady=(10, 5))
-        self.entry_promo = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=35,
-                                      fg_color="#D6DBE3", text_color="#1A2233",
-                                      placeholder_text="Ej: 10% los martes / 6 cuotas sin interés todos los días")
+        self.entry_promo = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=38,
+                                      fg_color="#FFFDF9", text_color="#1F1B16",
+                                      placeholder_text="Ej: 10% los martes / 6 cuotas sin interés todos los días", border_color="#9C927F")
         self.entry_promo.pack(fill="x", padx=40, pady=(0, 10))
         if self.entidad and getattr(self.entidad, 'promocion_descripcion', ''):
             self.entry_promo.insert(0, self.entidad.promocion_descripcion)
 
         # Checkbox: Activa
         self.check_activa = ctk.CTkCheckBox(frame_scroll, text="Activa", font=("Roboto", 13),
-                                          fg_color="#15803D", hover_color="#166534", text_color="#1A2233")
+                                          fg_color="#15803D", hover_color="#166534", text_color="#1F1B16")
         self.check_activa.pack(anchor="w", padx=40, pady=10)
         if self.entidad and self.entidad.activa:
             self.check_activa.select()
@@ -203,12 +203,12 @@ class FrameEntidadPago(BaseFrame):
 
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
                                   fg_color="#15803D", hover_color="#166534",
-                                  corner_radius=10, command=guardar, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                  corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#D6DBE3",
-                                   corner_radius=10, command=self.controller.volver, border_width=1, border_color="#CBD2DC", text_color="#FFFFFF")
+                                   fg_color="#64748B", hover_color="#475569",
+                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
 
     def _on_cambio_tipo(self, tipo):
