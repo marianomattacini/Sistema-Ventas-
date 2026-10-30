@@ -1,12 +1,8 @@
 import os
 import sys
 import sqlite3
-try:
-    import psycopg2
-    from psycopg2 import Error
-except ImportError:
-    psycopg2 = None
-    Error = Exception
+import psycopg2
+from psycopg2 import Error
 from dotenv import load_dotenv
 
 # Permite ejecutar este archivo directamente (python database/config.py)
@@ -67,10 +63,6 @@ def get_postgres_connection():
     """
     Retorna una conexión a PostgreSQL usando variables de entorno.
     """
-    if psycopg2 is None:
-        print("❌ PostgreSQL no está disponible: falta instalar psycopg2-binary.")
-        print("   Ejecutá: python -m pip install -r requirements.txt")
-        return None
     try:
         conn = psycopg2.connect(
             host=PG_HOST,
@@ -83,6 +75,39 @@ def get_postgres_connection():
     except Error as e:
         print(f"❌ Error al conectar a PostgreSQL: {e}")
         return None
+
+def crear_base_postgresql_si_no_existe():
+    """
+    Si la base PG_DATABASE todavía no existe en el servidor PostgreSQL, la crea
+    (conectándose a la base de mantenimiento "postgres"). Así los scripts de
+    carga no fallan en una instalación nueva con "database does not exist".
+    Retorna True si la base existe o se creó, False si no se pudo.
+    """
+    try:
+        conn = psycopg2.connect(host=PG_HOST, port=PG_PORT, database="postgres",
+                                user=PG_USER, password=PG_PASSWORD)
+    except Error as e:
+        print(f"❌ No se pudo conectar al servidor PostgreSQL ({PG_HOST}:{PG_PORT}): {e}")
+        print("   Revisá que PostgreSQL esté iniciado y que PG_HOST, PG_PORT, PG_USER y "
+              "PG_PASSWORD de tu .env sean correctos.")
+        return False
+    try:
+        conn.autocommit = True
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1 FROM pg_database WHERE datname = %s", (PG_DATABASE,))
+        if cursor.fetchone():
+            return True
+        # El nombre de la base no se puede pasar como parámetro: se escapa como identificador
+        from psycopg2 import sql
+        cursor.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(PG_DATABASE)))
+        print(f"✅ Base de datos '{PG_DATABASE}' creada en PostgreSQL.")
+        return True
+    except Error as e:
+        print(f"❌ No se pudo crear la base '{PG_DATABASE}': {e}")
+        return False
+    finally:
+        conn.close()
+
 
 def test_connections():
     """

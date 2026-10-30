@@ -48,7 +48,6 @@ class FrameProductos(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        
         # Panel de filtros
         panel_filtros = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_filtros.pack(fill="x", padx=20, pady=10)

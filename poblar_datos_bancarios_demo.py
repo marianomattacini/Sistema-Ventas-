@@ -37,6 +37,13 @@ Uso:
     python poblar_datos_bancarios_demo.py
 """
 
+import os
+import sys
+
+# Permite ejecutar este archivo directamente (python database/setup_postgresql.py)
+# sin depender de que la raíz del proyecto ya esté en el PYTHONPATH.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import random
 from database.config import get_postgres_connection
 from database.setup_postgresql import crear_tablas_postgresql
@@ -233,6 +240,11 @@ def limpiar_datos_demo_previos(cursor):
 
 
 def poblar():
+    from database.config import crear_base_postgresql_si_no_existe
+    from database.setup_postgresql import crear_tablas_postgresql
+    # Asegura base, tablas y columnas (también en bases creadas con una versión vieja)
+    if not crear_base_postgresql_si_no_existe() or not crear_tablas_postgresql():
+        return
     conn = get_postgres_connection()
     if not conn:
         print("❌ No se pudo conectar a PostgreSQL. Revisá las credenciales en tu .env")

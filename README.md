@@ -149,19 +149,3 @@ pyinstaller SistemaVentas.spec
 
 El ejecutable queda en `dist/`.
 # Sistema-Ventas-
-
-## Configuración de las bases de datos en Windows
-
-1. Ejecutar `Configurar Bases de Datos.bat` desde la raíz del proyecto.
-2. La primera vez se crea `.env` desde `.env.example`; completar `PG_PASSWORD` con la contraseña real del usuario `postgres`.
-3. El configurador instala las dependencias, prepara `supermercado.db` (SQLite), crea la base PostgreSQL `cajero_automatico` si no existe y luego crea sus tablas financieras.
-
-También puede hacerse manualmente:
-
-```powershell
-python -m pip install -r requirements.txt
-python database\setup_db.py
-python database\setup_postgresql.py
-```
-
-SQLite ya no depende de que `psycopg2` pueda importarse para abrir su conexión. PostgreSQL requiere que el servicio esté iniciado y que los datos de `.env` sean correctos.

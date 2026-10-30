@@ -53,7 +53,6 @@ class FrameCompras(BaseFrame):
                     font=("Roboto", 24, "bold"), text_color="#1D4ED8"
         ).pack(side="left")
         
-        
         # Panel de datos de la compra
         panel_compra = ctk.CTkFrame(frame_principal, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
         panel_compra.pack(fill="x", padx=20, pady=10)

@@ -1,45 +1,13 @@
 import os
 import sys
 
-# Permite ejecutar este archivo directamente desde cualquier carpeta.
+# Permite ejecutar este archivo directamente (python database/setup_postgresql.py)
+# sin depender de que la raíz del proyecto ya esté en el PYTHONPATH.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-try:
-    import psycopg2
-    from psycopg2 import Error, sql
-except ImportError:
-    psycopg2 = None
-    Error = Exception
-    sql = None
-
-from database.config import (
-    get_postgres_connection, PG_HOST, PG_PORT, PG_DATABASE, PG_USER, PG_PASSWORD
-)
-
-def asegurar_base_postgresql():
-    """Crea PG_DATABASE si todavía no existe, conectándose primero a postgres."""
-    if psycopg2 is None:
-        print("❌ Falta psycopg2-binary. Ejecutá: python -m pip install -r requirements.txt")
-        return False
-    try:
-        conn = psycopg2.connect(
-            host=PG_HOST, port=PG_PORT, database="postgres",
-            user=PG_USER, password=PG_PASSWORD
-        )
-        conn.autocommit = True
-        cur = conn.cursor()
-        cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (PG_DATABASE,))
-        if cur.fetchone() is None:
-            cur.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(PG_DATABASE)))
-            print(f"✅ Base PostgreSQL '{PG_DATABASE}' creada.")
-        else:
-            print(f"ℹ️ Base PostgreSQL '{PG_DATABASE}' ya existe.")
-        cur.close(); conn.close()
-        return True
-    except Exception as e:
-        print(f"❌ No se pudo preparar PostgreSQL: {e}")
-        print("   Revisá que PostgreSQL esté iniciado y que .env tenga usuario/clave/puerto correctos.")
-        return False
+import psycopg2
+from psycopg2 import Error
+from database.config import get_postgres_connection, crear_base_postgresql_si_no_existe
 
 # =====================================================================
 # CREACIÓN DE TABLAS EN POSTGRESQL
@@ -108,6 +76,35 @@ def crear_tablas_postgresql():
             )
         ''')
 
+        # Migración: si estas tablas ya existían de una versión anterior del sistema,
+        # CREATE TABLE IF NOT EXISTS no les agrega las columnas nuevas. Se completan
+        # acá (ADD COLUMN IF NOT EXISTS no toca ni borra datos existentes).
+        columnas_esperadas = {
+            "cuentas_bancarias": [
+                ("dni_cuil", "VARCHAR(20)"), ("usuario", "VARCHAR(50)"), ("contrasena", "VARCHAR(50)"),
+                ("tipo_cuenta", "VARCHAR(30)"), ("saldo", "NUMERIC(15, 2) DEFAULT 0.0"),
+                ("cbu", "VARCHAR(22)"), ("alias", "VARCHAR(50)"), ("numero_debito", "VARCHAR(16)"),
+                ("pin_debito", "VARCHAR(4)"), ("vencimiento_debito", "VARCHAR(5)"),
+                ("limite_extraccion_mensual", "NUMERIC(15, 2)"), ("estado", "VARCHAR(20) DEFAULT 'Activo'"),
+            ],
+            "tarjetas_credito": [
+                ("cuenta_id", "INTEGER"), ("banco", "VARCHAR(50)"), ("numero_tarjeta", "VARCHAR(16)"),
+                ("cvv", "VARCHAR(4)"), ("vencimiento_credito", "VARCHAR(5)"),
+                ("limite_un_pago", "NUMERIC(15, 2)"), ("consumo_un_pago", "NUMERIC(15, 2) DEFAULT 0.0"),
+                ("limite_cuotas", "NUMERIC(15, 2)"), ("consumo_cuotas", "NUMERIC(15, 2) DEFAULT 0.0"),
+                ("limite_extraccion", "NUMERIC(15, 2)"), ("consumo_extraccion", "NUMERIC(15, 2) DEFAULT 0.0"),
+                ("saldo_total_a_pagar", "NUMERIC(15, 2) DEFAULT 0.0"), ("promocion", "TEXT"),
+                ("estado", "VARCHAR(20) DEFAULT 'Activo'"),
+            ],
+            "movimientos": [
+                ("cuenta_id", "INTEGER"), ("tipo_operacion", "VARCHAR(50)"), ("monto", "NUMERIC(15, 2)"),
+                ("descripcion", "TEXT"), ("fecha", "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"),
+            ],
+        }
+        for tabla, columnas in columnas_esperadas.items():
+            for nombre, tipo in columnas:
+                cursor.execute(f"ALTER TABLE {tabla} ADD COLUMN IF NOT EXISTS {nombre} {tipo}")
+
         conn.commit()
         print("✅ Tablas financieras creadas (o ya existían) en PostgreSQL.")
         return True
@@ -157,18 +154,20 @@ def insertar_clientes_bancarios():
     
     cursor = conn.cursor()
     insertados = 0
+    errores = 0
     
     for (dni, usuario, contrasena, tipo_cuenta, saldo, numero_debito, pin_debito, alias, cbu,
          numero_tarjeta_credito, cvv, vencimiento_credito, limite_un_pago, limite_cuotas, banco, promocion) in clientes:
         
         try:
+            cursor.execute("SAVEPOINT cliente")
             cursor.execute('''
                 INSERT INTO cuentas_bancarias 
                 (dni_cuil, usuario, contrasena, tipo_cuenta, saldo, numero_debito, pin_debito, alias, cbu, estado)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                ON CONFLICT (dni_cuil) DO NOTHING
+                SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                WHERE NOT EXISTS (SELECT 1 FROM cuentas_bancarias WHERE usuario = %s)
                 RETURNING id
-            ''', (dni, usuario, contrasena, tipo_cuenta, saldo, numero_debito, pin_debito, alias, cbu, 'Activo'))
+            ''', (dni, usuario, contrasena, tipo_cuenta, saldo, numero_debito, pin_debito, alias, cbu, 'Activo', usuario))
             
             row = cursor.fetchone()
             if row:
@@ -183,13 +182,17 @@ def insertar_clientes_bancarios():
             else:
                 print(f"ℹ️ Usuario {usuario} ya existía (DNI {dni}).")
         except Exception as e:
+            cursor.execute("ROLLBACK TO SAVEPOINT cliente")
+            errores += 1
             print(f"❌ Error al insertar {usuario}: {e}")
     
     conn.commit()
     cursor.close()
     conn.close()
     print(f"✅ {insertados} nuevas cuentas insertadas correctamente.")
-    return True
+    if errores:
+        print(f"❌ {errores} cliente(s) no se pudieron insertar (ver detalle arriba).")
+    return errores == 0
 
 # =====================================================================
 # EJECUCIÓN DIRECTA
@@ -199,15 +202,8 @@ if __name__ == "__main__":
     print("🏦 CONFIGURANDO BASE DE DATOS FINANCIERA (POSTGRESQL)")
     print("=" * 50)
     
-    ok = asegurar_base_postgresql()
-    if ok:
-        ok = crear_tablas_postgresql()
-    if ok:
-        ok = insertar_clientes_bancarios()
+    ok = crear_base_postgresql_si_no_existe() and crear_tablas_postgresql() and insertar_clientes_bancarios()
 
     print("=" * 50)
-    if ok:
-        print(f"✅ PostgreSQL listo: {PG_DATABASE}")
-        sys.exit(0)
-    print("❌ No se pudo configurar PostgreSQL.")
-    sys.exit(1)
+    print("✅ Proceso completado." if ok else "❌ El proceso terminó con errores (ver mensajes de arriba).")
+    sys.exit(0 if ok else 1)

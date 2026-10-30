@@ -47,7 +47,6 @@ class FrameGerente(BaseFrame):
                     font=("Roboto", 14), text_color="#5A5347"
         ).pack(side="right", padx=10)
         
-        
         self.tabview = ctk.CTkTabview(frame_principal, fg_color="#E3DCD0", corner_radius=10)
         self.tabview.pack(fill="both", expand=True, padx=20, pady=20)
         
