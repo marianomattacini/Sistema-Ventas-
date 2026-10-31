@@ -17,16 +17,16 @@ class MenuPrincipal(ctk.CTkFrame):
         self.grid_columnconfigure(2, weight=1)
 
         # Frame central
-        frame_central = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
+        frame_central = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#BFAE9A")
         frame_central.grid(row=1, column=1, padx=20, pady=20, sticky="nsew")
 
         # Título y bienvenida
         ctk.CTkLabel(frame_central, text=f"🏪 Bienvenido, {self.usuario.nombre_usuario}",
-                    font=("Roboto", 28, "bold"), text_color="#1D4ED8"
+                    font=("Roboto", 28, "bold"), text_color="#7A5C45"
         ).pack(pady=(30, 10))
 
         ctk.CTkLabel(frame_central, text=f"Rol: {self.usuario.rol}",
-                    font=("Roboto", 16), text_color="#5A5347"
+                    font=("Roboto", 16), text_color="#5E5144"
         ).pack(pady=(0, 30))
 
         # Botones según rol
@@ -34,9 +34,9 @@ class MenuPrincipal(ctk.CTkFrame):
 
         # Botón Cerrar Sesión
         ctk.CTkButton(frame_central, text="🚪 Cerrar Sesión", height=40,
-                     fg_color="#DC2626", hover_color="#B91C1C",
+                     fg_color="#B43B32", hover_color="#922F28",
                      corner_radius=10, command=self.controller.cerrar_sesion
-        , border_width=2, border_color="#9C927F", text_color="#FFFFFF").pack(pady=(30, 20))
+        , border_width=2, border_color="#BFAE9A", text_color="#FFFFFF").pack(pady=(30, 20))
 
     def _crear_botones(self, parent):
         """Crea los botones según el rol del usuario."""
@@ -48,44 +48,44 @@ class MenuPrincipal(ctk.CTkFrame):
             frame_botones.grid_columnconfigure(i, weight=1)
 
         # Función para crear botones
-        def crear_boton(fila, columna, texto, comando, color="#2563EB"):
+        def crear_boton(fila, columna, texto, comando, color="#A24C2F"):
             btn = ctk.CTkButton(frame_botones, text=texto, height=40,
                               font=("Roboto", 16, "bold"), fg_color=color,
-                              hover_color="#2563EB" if color == "#2563EB" else color,
-                              corner_radius=12, command=comando, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                              hover_color="#A24C2F" if color == "#A24C2F" else color,
+                              corner_radius=12, command=comando, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
             btn.grid(row=fila, column=columna, padx=10, pady=10, sticky="nsew")
             return btn
 
         # Botones comunes a todos
         if self.usuario.tiene_permiso('puede_vender'):
-            crear_boton(0, 0, "🛒 Punto de Venta (POS)", self._abrir_pos, "#15803D")
+            crear_boton(0, 0, "🛒 Punto de Venta (POS)", self._abrir_pos, "#2F6B4F")
 
         if self.usuario.rol in ["Administrador", "Gerente General"]:
-            crear_boton(0, 1, "⚙️ Administración", self._abrir_administracion, "#2563EB")
+            crear_boton(0, 1, "⚙️ Administración", self._abrir_administracion, "#A24C2F")
 
         if self.usuario.rol == "Gerente General":
-            crear_boton(1, 0, "📊 Panel del Gerente", self._abrir_gerente, "#7C3AED")
+            crear_boton(1, 0, "📊 Panel del Gerente", self._abrir_gerente, "#3F6478")
 
         if self.usuario.tiene_permiso('puede_gestionar_productos'):
-            crear_boton(1, 1, "📦 Productos", self._abrir_productos, "#C2410C")
+            crear_boton(1, 1, "📦 Productos", self._abrir_productos, "#A15C00")
 
         if self.usuario.tiene_permiso('puede_gestionar_clientes'):
-            crear_boton(2, 0, "👥 Clientes", self._abrir_clientes, "#15803D")
+            crear_boton(2, 0, "👥 Clientes", self._abrir_clientes, "#2F6B4F")
 
         if self.usuario.tiene_permiso('puede_gestionar_proveedores'):
-            crear_boton(2, 1, "🏢 Proveedores", self._abrir_proveedores, "#2563EB")
+            crear_boton(2, 1, "🏢 Proveedores", self._abrir_proveedores, "#A24C2F")
 
         if self.usuario.tiene_permiso('puede_gestionar_compras'):
-            crear_boton(3, 0, "📥 Compras", self._abrir_compras, "#7C3AED")
+            crear_boton(3, 0, "📥 Compras", self._abrir_compras, "#3F6478")
 
         if self.usuario.tiene_permiso('puede_ver_reportes'):
-            crear_boton(3, 1, "🕒 Turnos", self._abrir_turnos, "#C2410C")
+            crear_boton(3, 1, "🕒 Turnos", self._abrir_turnos, "#A15C00")
 
         if self.usuario.tiene_permiso('puede_gestionar_usuarios'):
-            crear_boton(4, 0, "🔐 Usuarios", self._abrir_usuarios, "#DC2626")
+            crear_boton(4, 0, "🔐 Usuarios", self._abrir_usuarios, "#B43B32")
 
         if self.usuario.rol == "Gerente General":
-            crear_boton(4, 1, "👥 Empleados", self._abrir_empleados, "#C2410C")
+            crear_boton(4, 1, "👥 Empleados", self._abrir_empleados, "#A15C00")
 
     def _abrir_pos(self):
         turno_abierto = Turno.obtener_turno_abierto()

@@ -11,16 +11,16 @@ class FrameEmpleados(BaseFrame):
         super().__init__(parent, controller, usuario_actual)
         self.empleado = empleado
 
-        self.configure(fg_color="#EFEAE2")
+        self.configure(fg_color="#F5EFE7")
 
         self._crear_widgets()
 
     def _crear_widgets(self):
-        frame_scroll = ctk.CTkScrollableFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
+        frame_scroll = ctk.CTkScrollableFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#BFAE9A")
         frame_scroll.pack(fill="both", expand=True, padx=20, pady=20)
 
         titulo = "Detalles del Empleado" if self.empleado else "Nuevo Empleado"
-        ctk.CTkLabel(frame_scroll, text=titulo, font=("Roboto", 20, "bold"), text_color="#1D4ED8"
+        ctk.CTkLabel(frame_scroll, text=titulo, font=("Roboto", 20, "bold"), text_color="#7A5C45"
         ).pack(pady=(20, 10))
 
         # --- Campos básicos ---
@@ -37,7 +37,7 @@ class FrameEmpleados(BaseFrame):
             ctk.CTkLabel(frame_scroll, text=f"{etiqueta}:", font=("Roboto", 13, "bold")
             ).pack(anchor="w", padx=40, pady=(10, 5))
             entrada = ctk.CTkEntry(frame_scroll, font=("Roboto", 13), height=38,
-                                 fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
+                                 fg_color="#FFFDF9", text_color="#2A241F", border_color="#BFAE9A")
             entrada.pack(fill="x", padx=40, pady=(0, 5))
             if self.empleado and hasattr(self.empleado, clave):
                 valor = getattr(self.empleado, clave, "")
@@ -55,14 +55,14 @@ class FrameEmpleados(BaseFrame):
         lista_roles = [r.nombre for r in roles] if roles else ["Cajero", "Supervisor", "Administrador", "Gerente General", "Repositor", "Vendedor"]
 
         self.combo_rol = ctk.CTkOptionMenu(frame_rol, values=lista_roles,
-                                         font=("Roboto", 13), fg_color="#D6CDBE",
-                                         text_color="#1F1B16", button_color="#2563EB",
+                                         font=("Roboto", 13), fg_color="#D9CCBC",
+                                         text_color="#2A241F", button_color="#A24C2F",
                                          corner_radius=10, command=self._actualizar_permisos)
         self.combo_rol.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
         btn_crear_rol = ctk.CTkButton(frame_rol, text="➕ Crear Rol", height=30,
-                                    fg_color="#7C3AED", hover_color="#6D28D9",
-                                    corner_radius=10, command=self._crear_nuevo_rol, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                    fg_color="#3F6478", hover_color="#315064",
+                                    corner_radius=10, command=self._crear_nuevo_rol, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_crear_rol.pack(side="left")
 
         if self.empleado and self.empleado.rol:
@@ -71,20 +71,20 @@ class FrameEmpleados(BaseFrame):
             self.combo_rol.set(lista_roles[0] if lista_roles else "Cajero")
 
         # --- Permisos (checkboxes) ---
-        self.frame_permisos = ctk.CTkFrame(frame_scroll, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
+        self.frame_permisos = ctk.CTkFrame(frame_scroll, fg_color="#EAE0D3", corner_radius=10, border_width=2, border_color="#BFAE9A")
         self.frame_permisos.pack(fill="x", padx=40, pady=(10, 20))
 
         ctk.CTkLabel(self.frame_permisos, text="Permisos asociados al rol:", font=("Roboto", 14, "bold"),
-                    text_color="#1D4ED8").pack(anchor="w", pady=(10, 5))
+                    text_color="#7A5C45").pack(anchor="w", pady=(10, 5))
 
         self.check_permisos = {}
         self._actualizar_permisos(self.combo_rol.get())
 
         # --- Licencias ---
         if self.empleado:
-            ctk.CTkLabel(frame_scroll, text="Licencias", font=("Roboto", 16, "bold"), text_color="#1D4ED8"
+            ctk.CTkLabel(frame_scroll, text="Licencias", font=("Roboto", 16, "bold"), text_color="#7A5C45"
             ).pack(pady=(20, 10))
-            self.frame_licencias = ctk.CTkScrollableFrame(frame_scroll, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
+            self.frame_licencias = ctk.CTkScrollableFrame(frame_scroll, fg_color="#EAE0D3", corner_radius=10, border_width=2, border_color="#BFAE9A")
             self.frame_licencias.pack(fill="both", expand=True, padx=40, pady=10)
             self._cargar_licencias()
 
@@ -130,13 +130,13 @@ class FrameEmpleados(BaseFrame):
                 messagebox.showerror("Error", str(e))
 
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
-                                  fg_color="#15803D", hover_color="#166534",
-                                  corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                  fg_color="#2F6B4F", hover_color="#24563F",
+                                  corner_radius=10, command=guardar, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#475569",
-                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                   fg_color="#8D735D", hover_color="#705B49",
+                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
 
     def _actualizar_permisos(self, nombre_rol):
@@ -154,14 +154,14 @@ class FrameEmpleados(BaseFrame):
         # Si no hay permisos definidos, mostrar un mensaje
         if not permisos:
             ctk.CTkLabel(self.frame_permisos, text="Este rol no tiene permisos específicos definidos.",
-                        font=("Roboto", 12), text_color="#7A7264"
+                        font=("Roboto", 12), text_color="#786957"
             ).pack(anchor="w", pady=5)
         else:
             for permiso, valor in permisos.items():
                 var = ctk.IntVar(value=1 if valor else 0)
                 chk = ctk.CTkCheckBox(self.frame_permisos, text=permiso.replace("_", " ").title(),
                                     variable=var, font=("Roboto", 12),
-                                    fg_color="#15803D", hover_color="#166534", text_color="#1F1B16")
+                                    fg_color="#2F6B4F", hover_color="#24563F", text_color="#2A241F")
                 chk.pack(anchor="w", pady=2, padx=20)
                 self.check_permisos[permiso] = var
 
@@ -247,29 +247,29 @@ class FrameEmpleados(BaseFrame):
                                 if not Rol.obtener_por_nombre(p)]
         if not puestos_disponibles:
             ctk.CTkLabel(frame, text="Ya existen roles creados para todos los\npuestos predefinidos.",
-                        font=("Roboto", 12), text_color="#7A7264").pack(pady=20)
-            ctk.CTkButton(frame, text="Cerrar", height=40, fg_color="#64748B",
-                        hover_color="#475569", corner_radius=10,
-                        command=dialog.destroy, border_width=2, border_color="#9C927F", text_color="#FFFFFF").pack(fill="x", pady=10)
+                        font=("Roboto", 12), text_color="#786957").pack(pady=20)
+            ctk.CTkButton(frame, text="Cerrar", height=40, fg_color="#8D735D",
+                        hover_color="#705B49", corner_radius=10,
+                        command=dialog.destroy, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF").pack(fill="x", pady=10)
             return
 
         combo_puesto = ctk.CTkOptionMenu(frame, values=puestos_disponibles,
-                                        font=("Roboto", 13), fg_color="#D6CDBE",
-                                        text_color="#1F1B16", button_color="#2563EB",
+                                        font=("Roboto", 13), fg_color="#D9CCBC",
+                                        text_color="#2A241F", button_color="#A24C2F",
                                         corner_radius=10,
                                         command=lambda p: _mostrar_permisos(p))
         combo_puesto.pack(fill="x", pady=(0, 15))
         combo_puesto.set(puestos_disponibles[0])
 
         ctk.CTkLabel(frame, text="Permisos asignados automáticamente:",
-                    font=("Roboto", 13, "bold"), text_color="#1D4ED8"
+                    font=("Roboto", 13, "bold"), text_color="#7A5C45"
         ).pack(anchor="w", pady=(5, 5))
 
-        frame_preview = ctk.CTkFrame(frame, fg_color="#E3DCD0", corner_radius=10, border_width=2, border_color="#9C927F")
+        frame_preview = ctk.CTkFrame(frame, fg_color="#EAE0D3", corner_radius=10, border_width=2, border_color="#BFAE9A")
         frame_preview.pack(fill="both", expand=True, pady=(0, 10))
 
         lbl_preview = ctk.CTkLabel(frame_preview, text="", font=("Roboto", 12),
-                                  text_color="#5A5347", justify="left")
+                                  text_color="#5E5144", justify="left")
         lbl_preview.pack(anchor="w", padx=15, pady=15)
 
         def _mostrar_permisos(puesto):
@@ -299,13 +299,13 @@ class FrameEmpleados(BaseFrame):
                 messagebox.showerror("Error", "No se pudo crear el rol (puede que ya exista).")
 
         btn_guardar = ctk.CTkButton(frame, text="💾 Crear Rol con estos permisos", height=40,
-                                  fg_color="#15803D", hover_color="#166534",
-                                  corner_radius=10, command=guardar_rol, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                  fg_color="#2F6B4F", hover_color="#24563F",
+                                  corner_radius=10, command=guardar_rol, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_guardar.pack(fill="x", pady=(10, 5))
 
         btn_cancelar = ctk.CTkButton(frame, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#475569",
-                                   corner_radius=10, command=dialog.destroy, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                   fg_color="#8D735D", hover_color="#705B49",
+                                   corner_radius=10, command=dialog.destroy, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_cancelar.pack(fill="x", pady=5)
 
     def _cargar_licencias(self):
@@ -314,10 +314,10 @@ class FrameEmpleados(BaseFrame):
         licencias = self.empleado.obtener_licencias() if self.empleado else []
         if not licencias:
             ctk.CTkLabel(self.frame_licencias, text="No hay licencias registradas.",
-                        font=("Roboto", 12), text_color="#7A7264"
+                        font=("Roboto", 12), text_color="#786957"
             ).pack(pady=20)
         else:
             for lic in licencias:
                 texto = f"{lic['tipo']} - {lic['fecha_inicio']} a {lic['fecha_fin'] or 'Activa'} ({lic['estado']})"
                 ctk.CTkLabel(self.frame_licencias, text=texto, font=("Roboto", 12),
-                            text_color="#1F1B16").pack(anchor="w", pady=2)
+                            text_color="#2A241F").pack(anchor="w", pady=2)

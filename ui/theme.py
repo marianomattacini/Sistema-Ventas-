@@ -3,55 +3,55 @@ Tema visual unificado del Sistema de Gestión de Ventas y Control de Stock.
 
 Centraliza colores, fuentes y helpers de estilo para que TODAS las
 pantallas (frames) usen exactamente la misma paleta e interacciones
-(hover, focus, disabled, éxito/error). Basado en la paleta que ya
-existía en el proyecto (slate + sky) para no romper la identidad visual,
-solo formalizarla y aplicarla en todos lados por igual.
+(hover, focus, disabled, éxito/error). Basado en la identidad Arena Premium: neutros cálidos, café estructural,
+terracota para acciones y colores semánticos accesibles. La paleta se aplica
+de forma uniforme sin alterar la lógica ni el comportamiento del sistema.
 """
 
 import customtkinter as ctk
 
 # ---------------------------------------------------------------------------
-# PALETA DE COLORES (Tailwind slate / sky / semánticos)
+# PALETA DE COLORES — ARENA PREMIUM
 # ---------------------------------------------------------------------------
 class Color:
     # Fondos
-    BG_APP = "#EFEAE2"          # fondo general de la app (contenido principal)
-    BG_BASE = "#E3DCD0"         # fondo de paneles/secciones
+    BG_APP = "#F5EFE7"          # fondo general de la app (contenido principal)
+    BG_BASE = "#EAE0D3"         # fondo de paneles/secciones
     BG_CARD = "#FBF8F3"         # tarjetas / contenedores
-    BG_CARD_ALT = "#F1ECE3"     # variante levemente distinta para anidar
+    BG_CARD_ALT = "#F1EAE1"     # variante levemente distinta para anidar
     BG_INPUT = "#FFFDF9"        # fondo de inputs
-    BORDER = "#9C927F"
+    BORDER = "#BFAE9A"
 
     # Texto
-    TEXT_PRIMARY = "#1F1B16"
-    TEXT_SECONDARY = "#5A5347"
-    TEXT_MUTED = "#7A7264"
+    TEXT_PRIMARY = "#2A241F"
+    TEXT_SECONDARY = "#5E5144"
+    TEXT_MUTED = "#786957"
     TEXT_WHITE = "#FFFFFF"
 
-    # Acento principal (azul corporativo)
-    ACCENT = "#1D4ED8"
-    ACCENT_HOVER = "#2563EB"
-    ACCENT_STRONG = "#2563EB"
+    # Identidad Arena Premium (café estructural + terracota de acción)
+    ACCENT = "#7A5C45"
+    ACCENT_HOVER = "#624836"
+    ACCENT_STRONG = "#A24C2F"
 
     # Sidebar
-    SIDEBAR_BG = "#E3DCD0"
-    SIDEBAR_ITEM_HOVER = "#D6CDBE"
-    SIDEBAR_ITEM_ACTIVE = "#2563EB"
+    SIDEBAR_BG = "#EAE0D3"
+    SIDEBAR_ITEM_HOVER = "#D9CCBC"
+    SIDEBAR_ITEM_ACTIVE = "#7A5C45"
     SIDEBAR_ITEM_ACTIVE_TEXT = "#FFFFFF"
 
     # Semánticos
-    SUCCESS = "#15803D"
-    SUCCESS_HOVER = "#166534"
-    WARNING = "#C2410C"
-    WARNING_HOVER = "#9A3412"
-    DANGER = "#DC2626"
-    DANGER_HOVER = "#B91C1C"
-    INFO = "#2563EB"
-    INFO_HOVER = "#1D4ED8"
-    VIOLET = "#7C3AED"
-    VIOLET_HOVER = "#6D28D9"
-    NEUTRAL = "#64748B"
-    NEUTRAL_HOVER = "#475569"
+    SUCCESS = "#2F6B4F"
+    SUCCESS_HOVER = "#24563F"
+    WARNING = "#A15C00"
+    WARNING_HOVER = "#824900"
+    DANGER = "#B43B32"
+    DANGER_HOVER = "#922F28"
+    INFO = "#3F6478"
+    INFO_HOVER = "#315064"
+    VIOLET = "#3F6478"
+    VIOLET_HOVER = "#315064"
+    NEUTRAL = "#8D735D"
+    NEUTRAL_HOVER = "#705B49"
 
 
 # ---------------------------------------------------------------------------
@@ -102,7 +102,30 @@ class Sizes:
 # ---------------------------------------------------------------------------
 def aplicar_tema_global():
     ctk.set_appearance_mode("light")
+    # Se carga el tema base de CustomTkinter y se reemplazan sus acentos
+    # predeterminados para evitar controles azules en pantallas que no
+    # especifican un color de forma explícita.
     ctk.set_default_color_theme("blue")
+
+    try:
+        tema = ctk.ThemeManager.theme
+        overrides = {
+            "CTkButton": {"fg_color": Color.ACCENT_STRONG, "hover_color": Color.ACCENT_HOVER},
+            "CTkCheckBox": {"fg_color": Color.ACCENT_STRONG, "hover_color": Color.ACCENT_HOVER},
+            "CTkRadioButton": {"fg_color": Color.ACCENT_STRONG, "hover_color": Color.ACCENT_HOVER},
+            "CTkComboBox": {"button_color": Color.ACCENT, "button_hover_color": Color.ACCENT_HOVER},
+            "CTkOptionMenu": {"fg_color": Color.ACCENT, "button_color": Color.ACCENT_STRONG, "button_hover_color": Color.ACCENT_HOVER},
+            "CTkProgressBar": {"progress_color": Color.ACCENT_STRONG},
+            "CTkSlider": {"button_color": Color.ACCENT_STRONG, "button_hover_color": Color.ACCENT_HOVER, "progress_color": Color.ACCENT},
+            "CTkScrollbar": {"button_color": Color.BORDER, "button_hover_color": Color.NEUTRAL},
+            "CTkSegmentedButton": {"selected_color": Color.ACCENT, "selected_hover_color": Color.ACCENT_HOVER, "unselected_hover_color": Color.BG_BASE},
+        }
+        for widget, valores in overrides.items():
+            if widget in tema:
+                tema[widget].update(valores)
+    except (AttributeError, TypeError):
+        # Compatibilidad con versiones de CustomTkinter sin ThemeManager público.
+        pass
 
 
 # ---------------------------------------------------------------------------
@@ -116,7 +139,7 @@ def boton_primario(master, text, command=None, **kw):
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#BFAE9A")
 
 
 def boton_secundario(master, text, command=None, **kw):
@@ -127,7 +150,7 @@ def boton_secundario(master, text, command=None, **kw):
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#BFAE9A")
 
 
 def boton_exito(master, text, command=None, **kw):
@@ -138,7 +161,7 @@ def boton_exito(master, text, command=None, **kw):
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#BFAE9A")
 
 
 def boton_peligro(master, text, command=None, **kw):
@@ -149,7 +172,7 @@ def boton_peligro(master, text, command=None, **kw):
         text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#9C927F")
+    return ctk.CTkButton(master, text=text, command=command, **defaults, border_width=2, border_color="#BFAE9A")
 
 
 def boton_volver(master, command=None, **kw):
@@ -160,7 +183,7 @@ def boton_volver(master, command=None, **kw):
         hover_color=Color.NEUTRAL_HOVER, text_color=Color.TEXT_WHITE,
     )
     defaults.update(kw)
-    return ctk.CTkButton(master, command=command, **defaults, border_width=2, border_color="#9C927F")
+    return ctk.CTkButton(master, command=command, **defaults, border_width=2, border_color="#BFAE9A")
 
 
 def card(master, **kw):

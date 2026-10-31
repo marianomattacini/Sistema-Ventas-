@@ -39,28 +39,28 @@ class FrameLogin(BaseFrame):
         # Campo: Usuario
         ctk.CTkLabel(
             frame, text="Usuario", font=Font.BODY,
-            text_color="#1F1B16"
+            text_color="#2A241F"
         ).pack(anchor="w", padx=40, pady=(10, 5))
 
         self.entry_usuario = ctk.CTkEntry(
             frame, placeholder_text="Nombre de usuario", height=38,
             font=Font.BODY, fg_color=Color.BG_INPUT, text_color=Color.TEXT_PRIMARY,
             corner_radius=10
-        , border_color="#9C927F")
+        , border_color="#BFAE9A")
         self.entry_usuario.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_usuario.bind("<Return>", lambda e: self._procesar_login())
 
         # Campo: PIN
         ctk.CTkLabel(
             frame, text="PIN", font=Font.BODY,
-            text_color="#1F1B16"
+            text_color="#2A241F"
         ).pack(anchor="w", padx=40, pady=(10, 5))
 
         self.entry_pin = ctk.CTkEntry(
             frame, placeholder_text="Ingrese su PIN", show="*",
             height=38, font=Font.BODY, fg_color=Color.BG_INPUT,
             text_color=Color.TEXT_PRIMARY, corner_radius=10
-        , border_color="#9C927F")
+        , border_color="#BFAE9A")
         self.entry_pin.pack(fill="x", padx=40, pady=(0, 20))
         self.entry_pin.bind("<Return>", lambda e: self._procesar_login())
 
@@ -86,7 +86,7 @@ class FrameLogin(BaseFrame):
             font=Font.BUTTON, fg_color=Color.NEUTRAL, hover_color=Color.NEUTRAL_HOVER,
             text_color=Color.TEXT_WHITE, corner_radius=10,
             command=self._mostrar_estado_operadores
-        , border_width=2, border_color="#9C927F")
+        , border_width=2, border_color="#BFAE9A")
         self.btn_estado.pack(fill="x", padx=40, pady=(0, 20))
 
         self.entry_usuario.focus_set()

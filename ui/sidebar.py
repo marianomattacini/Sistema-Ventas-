@@ -96,7 +96,7 @@ class Sidebar(ctk.CTkFrame):
             pie, text="🚪 Cerrar Sesión", font=Font.BODY_BOLD, height=40,
             corner_radius=Radius.MD, fg_color=Color.DANGER,
             hover_color=Color.DANGER_HOVER, command=self._cerrar_sesion,
-        border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+        border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_salir.pack(fill="x")
 
     def _cerrar_sesion(self):
@@ -141,7 +141,7 @@ class Sidebar(ctk.CTkFrame):
             fg_color="transparent", hover_color=Color.SIDEBAR_ITEM_HOVER,
             text_color=Color.TEXT_PRIMARY,
             command=lambda n=nombre_pantalla: self.app.mostrar_pantalla(n),
-        border_width=2, border_color="#9C927F")
+        border_width=2, border_color="#BFAE9A")
         btn.pack(fill="x", pady=2)
         self.botones[nombre_pantalla] = btn
 

@@ -7,16 +7,16 @@ class FrameConfiguracion(BaseFrame):
     def __init__(self, parent, controller, usuario_actual, **kwargs):
         super().__init__(parent, controller, usuario_actual)
 
-        self.configure(fg_color="#EFEAE2")
+        self.configure(fg_color="#F5EFE7")
 
         self._crear_widgets()
 
     def _crear_widgets(self):
-        frame = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#9C927F")
+        frame = ctk.CTkFrame(self, fg_color="#FBF8F3", corner_radius=15, border_width=2, border_color="#BFAE9A")
         frame.pack(fill="both", expand=True, padx=20, pady=20)
 
         ctk.CTkLabel(frame, text="⚙️ Configuración del Sistema", 
-                    font=("Roboto", 20, "bold"), text_color="#1D4ED8"
+                    font=("Roboto", 20, "bold"), text_color="#7A5C45"
         ).pack(pady=(20, 10))
 
         self.entradas = {}
@@ -32,7 +32,7 @@ class FrameConfiguracion(BaseFrame):
             ctk.CTkLabel(frame, text=f"{etiqueta}:", font=("Roboto", 13, "bold")
             ).pack(anchor="w", padx=40, pady=(10, 5))
             entrada = ctk.CTkEntry(frame, font=("Roboto", 13), height=38,
-                                 fg_color="#FFFDF9", text_color="#1F1B16", border_color="#9C927F")
+                                 fg_color="#FFFDF9", text_color="#2A241F", border_color="#BFAE9A")
             entrada.pack(fill="x", padx=40, pady=(0, 5))
             if clave in configs:
                 entrada.insert(0, configs[clave])
@@ -52,11 +52,11 @@ class FrameConfiguracion(BaseFrame):
             self.controller.volver()
 
         btn_guardar = ctk.CTkButton(frame_botones, text="💾 Guardar", height=40,
-                                  fg_color="#15803D", hover_color="#166534",
-                                  corner_radius=10, command=guardar, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                  fg_color="#2F6B4F", hover_color="#24563F",
+                                  corner_radius=10, command=guardar, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_guardar.pack(side="left", fill="x", expand=True, padx=5)
 
         btn_cancelar = ctk.CTkButton(frame_botones, text="Cancelar", height=40,
-                                   fg_color="#64748B", hover_color="#475569",
-                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#9C927F", text_color="#FFFFFF")
+                                   fg_color="#8D735D", hover_color="#705B49",
+                                   corner_radius=10, command=self.controller.volver, border_width=2, border_color="#BFAE9A", text_color="#FFFFFF")
         btn_cancelar.pack(side="left", fill="x", expand=True, padx=5)
